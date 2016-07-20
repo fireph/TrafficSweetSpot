@@ -14,6 +14,7 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
     @IBOutlet weak var travelTime: NSMenuItem!
     @IBOutlet weak var travelTimeChartMenuItem: NSMenuItem!
     @IBOutlet weak var travelTimeChart: TravelTimeChartView!
+    var aboutWindow: AboutWindow!
     var preferencesWindow: PreferencesWindow!
 
     let INTERVAL_TIME_IN_SECONDS = 300.0
@@ -31,6 +32,7 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
         icon?.template = true // best for dark mode
         statusItem.image = icon
         statusItem.menu = statusMenu
+        aboutWindow = AboutWindow()
         preferencesWindow = PreferencesWindow()
         preferencesWindow.delegate = self
         travelTimeChartMenuItem.view = travelTimeChart
@@ -122,6 +124,7 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
     }
 
     @IBAction func aboutClicked(sender: AnyObject) {
+        aboutWindow.showWindow(nil)
     }
     
     @IBAction func preferencesClicked(sender: AnyObject) {
