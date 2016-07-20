@@ -24,7 +24,11 @@ class TravelTimeChartView: NSView {
         dispatch_async(dispatch_get_main_queue()) {
             if (self.lineChartView != nil) {
                 self.lineChartView.leftAxis.axisMinValue = 0
+                let numberFormatter = NSNumberFormatter()
+                numberFormatter.generatesDecimalNumbers = false
+                self.lineChartView.leftAxis.valueFormatter = numberFormatter
                 self.lineChartView.rightAxis.axisMinValue = 0
+                self.lineChartView.rightAxis.valueFormatter = numberFormatter
                 self.lineChartView.descriptionText = ""
                 self.lineChartView.noDataText = "No data yet"
                 self.lineChartView.data = data

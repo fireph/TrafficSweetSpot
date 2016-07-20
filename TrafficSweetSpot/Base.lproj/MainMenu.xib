@@ -16,6 +16,7 @@
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
         <customObject id="kxq-9y-9cq" customClass="StatusMenuController" customModule="TrafficSweetSpot" customModuleProvider="target">
             <connections>
+                <outlet property="lastTimestamp" destination="Aeg-Zy-VRP" id="qd6-BB-wKP"/>
                 <outlet property="statusMenu" destination="rJC-ad-A5A" id="AXq-mm-evu"/>
                 <outlet property="travelTime" destination="mbl-Qn-zNV" id="eNV-w2-Bgd"/>
                 <outlet property="travelTimeChart" destination="hAy-H5-Flh" id="c6c-E3-9Kz"/>
@@ -35,6 +36,9 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                 </menuItem>
                 <menuItem title="Travel Time" id="mbl-Qn-zNV">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="Last Timestamp" id="Aeg-Zy-VRP">
                     <modifierMask key="keyEquivalentModifierMask"/>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="jeY-O3-9tf"/>

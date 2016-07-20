@@ -12,12 +12,14 @@ import Charts
 class StatusMenuController: NSObject, PreferencesWindowDelegate {
     @IBOutlet weak var statusMenu: NSMenu!
     @IBOutlet weak var travelTime: NSMenuItem!
+    @IBOutlet weak var lastTimestamp: NSMenuItem!
     @IBOutlet weak var travelTimeChartMenuItem: NSMenuItem!
     @IBOutlet weak var travelTimeChart: TravelTimeChartView!
     var aboutWindow: AboutWindow!
     var preferencesWindow: PreferencesWindow!
 
     let INTERVAL_TIME_IN_SECONDS = 300.0
+    let THROW_AWAY_DATA_AFTER_MINUTES = 120.0
 
     let statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(NSVariableStatusItemLength)
     let mapsAPI = MapsDistanceMatrixAPI()
@@ -38,13 +40,14 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
         travelTimeChartMenuItem.view = travelTimeChart
         initChartData()
         updateTravelTime()
-        NSTimer.scheduledTimerWithTimeInterval(
+        let alarm = NSTimer.scheduledTimerWithTimeInterval(
             INTERVAL_TIME_IN_SECONDS,
             target: self,
             selector: #selector(StatusMenuController.updateTravelTime),
             userInfo: nil,
             repeats: true
         )
+        NSRunLoop.mainRunLoop().addTimer(alarm, forMode: NSRunLoopCommonModes)
     }
     
     func updateTravelTime() {
@@ -56,7 +59,13 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
             return;
         }
         mapsAPI.fetchTravelTime(apiKey!, origin: origin!, dest: dest!) { route in
-            self.travelTime.title = "Current travel time: "+route.durationString
+            dispatch_async(dispatch_get_main_queue()) {
+                self.travelTime.title = "Current travel time: \(route.durationString)"
+                self.lastTimestamp.title = "Last fetched time: \(route.timestampString)"
+            }
+            self.statusMenu.itemChanged(self.travelTime)
+            self.statusMenu.itemChanged(self.lastTimestamp)
+            self.removeOldRoutesIfNeeded(route.timestamp)
             self.fillMissingRoutesIfNeeded(route.timestamp)
             self.appendRouteToSet(route)
         }
@@ -71,9 +80,23 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
             routesData.addXValue(route.timestampString)
             routesData.notifyDataChanged()
             travelTimeChart.update()
+            statusMenu.itemChanged(travelTimeChartMenuItem)
         }
     }
     
+    func removeOldRoutesIfNeeded(currentTimestamp: Double) {
+        var firstTimestamp = routes.first?.timestamp
+        if (firstTimestamp < (currentTimestamp - THROW_AWAY_DATA_AFTER_MINUTES*60 - 60*60)) {
+            while routes.count > 0 && firstTimestamp < (currentTimestamp - THROW_AWAY_DATA_AFTER_MINUTES*60) {
+                routes.removeFirst()
+                firstTimestamp = routes.first?.timestamp
+            }
+            initChartData()
+            travelTimeChart.update()
+            statusMenu.itemChanged(travelTimeChartMenuItem)
+        }
+    }
+
     func fillMissingRoutesIfNeeded(currentTimestamp: Double) {
         if (self.routes.count == 0) {
             return;
@@ -96,6 +119,7 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
     }
     
     func initChartData() {
+        routeTimestamps = []
         var yVals1 : [ChartDataEntry] = [ChartDataEntry]()
         for i in 0 ..< routes.count {
             yVals1.append(ChartDataEntry(value: Double(routes[i].duration)/60.0, xIndex: i))
@@ -118,7 +142,6 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
     
     func preferencesDidUpdate() {
         routes = []
-        routeTimestamps = []
         initChartData()
         updateTravelTime()
     }
