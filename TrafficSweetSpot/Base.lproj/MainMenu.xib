@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
+            <connections>
+                <outlet property="delegate" destination="Voe-Tx-rLC" id="GzC-gU-4Uq"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="TrafficSweetSpot" customModuleProvider="target"/>
+        <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
+        <customObject id="kxq-9y-9cq" customClass="StatusMenuController" customModule="TrafficSweetSpot" customModuleProvider="target">
+            <connections>
+                <outlet property="statusMenu" destination="rJC-ad-A5A" id="AXq-mm-evu"/>
+                <outlet property="travelTime" destination="mbl-Qn-zNV" id="eNV-w2-Bgd"/>
+                <outlet property="travelTimeChart" destination="hAy-H5-Flh" id="c6c-E3-9Kz"/>
+                <outlet property="travelTimeChartMenuItem" destination="YVU-dX-3lb" id="QaV-2k-hk1"/>
+            </connections>
+        </customObject>
+        <menu id="rJC-ad-A5A" userLabel="Status Menu">
+            <items>
+                <menuItem title="About TrafficSweetSpot" id="GUU-j7-ohS">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="aboutClicked:" target="kxq-9y-9cq" id="dDX-Lv-p07"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="lLj-MT-cky"/>
+                <menuItem title="Travel Time Chart" id="YVU-dX-3lb" userLabel="Travel Time Chart">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="Travel Time" id="mbl-Qn-zNV">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="jeY-O3-9tf"/>
+                <menuItem title="Preferences" id="6Yp-QI-Xa2" userLabel="Preferences">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="preferencesClicked:" target="kxq-9y-9cq" id="grG-qs-QyJ"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Quit" id="2K3-zf-g2l">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="quitClicked:" target="kxq-9y-9cq" id="HtW-OK-RtF"/>
+                    </connections>
+                </menuItem>
+            </items>
+            <point key="canvasLocation" x="382.5" y="348.5"/>
+        </menu>
+        <customView id="hAy-H5-Flh" customClass="TravelTimeChartView" customModule="TrafficSweetSpot" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="250" height="150"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tkr-Eo-nYa" customClass="LineChartView" customModule="Charts">
+                    <rect key="frame" x="10" y="10" width="230" height="130"/>
+                </customView>
+            </subviews>
+            <connections>
+                <outlet property="lineChartView" destination="Tkr-Eo-nYa" id="1kp-dv-3zD"/>
+            </connections>
+            <point key="canvasLocation" x="321" y="526"/>
+        </customView>
+    </objects>
+</document>

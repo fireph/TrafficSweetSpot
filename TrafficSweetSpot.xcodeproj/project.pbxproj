@@ -1,0 +1,562 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		FA4A72CA1D3F019600FE113B /* TravelTimeChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4A72C91D3F019600FE113B /* TravelTimeChartView.swift */; };
+		FA4A72CD1D3F38C300FE113B /* PreferencesWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4A72CB1D3F38C300FE113B /* PreferencesWindow.swift */; };
+		FA4A72CE1D3F38C300FE113B /* PreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA4A72CC1D3F38C300FE113B /* PreferencesWindow.xib */; };
+		FA4A72D11D3F52A400FE113B /* AboutWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4A72CF1D3F52A400FE113B /* AboutWindow.swift */; };
+		FA4A72D21D3F52A400FE113B /* AboutWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA4A72D01D3F52A400FE113B /* AboutWindow.xib */; };
+		FA70FCC51D3EA484008BF487 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA70FCC41D3EA484008BF487 /* AppDelegate.swift */; };
+		FA70FCC71D3EA484008BF487 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA70FCC61D3EA484008BF487 /* Assets.xcassets */; };
+		FA70FCCA1D3EA484008BF487 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA70FCC81D3EA484008BF487 /* MainMenu.xib */; };
+		FA70FCD51D3EA484008BF487 /* TrafficSweetSpotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA70FCD41D3EA484008BF487 /* TrafficSweetSpotTests.swift */; };
+		FA70FCE01D3EA484008BF487 /* TrafficSweetSpotUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA70FCDF1D3EA484008BF487 /* TrafficSweetSpotUITests.swift */; };
+		FA94FC571D3EABF9006C2A82 /* StatusMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA94FC561D3EABF9006C2A82 /* StatusMenuController.swift */; };
+		FA94FC591D3EAD98006C2A82 /* MapsDistanceMatrixAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA94FC581D3EAD98006C2A82 /* MapsDistanceMatrixAPI.swift */; };
+		FA94FC611D3EEED8006C2A82 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA94FC5E1D3ED5BB006C2A82 /* Charts.framework */; };
+		FA94FC621D3EEED8006C2A82 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA94FC5A1D3EBB1A006C2A82 /* SwiftyJSON.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		FA70FCD11D3EA484008BF487 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FA70FCB91D3EA484008BF487 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FA70FCC01D3EA484008BF487;
+			remoteInfo = TrafficSweetSpot;
+		};
+		FA70FCDC1D3EA484008BF487 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FA70FCB91D3EA484008BF487 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FA70FCC01D3EA484008BF487;
+			remoteInfo = TrafficSweetSpot;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		FA4A72C91D3F019600FE113B /* TravelTimeChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TravelTimeChartView.swift; sourceTree = "<group>"; };
+		FA4A72CB1D3F38C300FE113B /* PreferencesWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesWindow.swift; sourceTree = "<group>"; };
+		FA4A72CC1D3F38C300FE113B /* PreferencesWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesWindow.xib; sourceTree = "<group>"; };
+		FA4A72CF1D3F52A400FE113B /* AboutWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutWindow.swift; sourceTree = "<group>"; };
+		FA4A72D01D3F52A400FE113B /* AboutWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutWindow.xib; sourceTree = "<group>"; };
+		FA70FCC11D3EA484008BF487 /* TrafficSweetSpot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrafficSweetSpot.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA70FCC41D3EA484008BF487 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		FA70FCC61D3EA484008BF487 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FA70FCC91D3EA484008BF487 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		FA70FCCB1D3EA484008BF487 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FA70FCD01D3EA484008BF487 /* TrafficSweetSpotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrafficSweetSpotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA70FCD41D3EA484008BF487 /* TrafficSweetSpotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrafficSweetSpotTests.swift; sourceTree = "<group>"; };
+		FA70FCD61D3EA484008BF487 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FA70FCDB1D3EA484008BF487 /* TrafficSweetSpotUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrafficSweetSpotUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA70FCDF1D3EA484008BF487 /* TrafficSweetSpotUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrafficSweetSpotUITests.swift; sourceTree = "<group>"; };
+		FA70FCE11D3EA484008BF487 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FA94FC561D3EABF9006C2A82 /* StatusMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusMenuController.swift; sourceTree = "<group>"; };
+		FA94FC581D3EAD98006C2A82 /* MapsDistanceMatrixAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapsDistanceMatrixAPI.swift; sourceTree = "<group>"; };
+		FA94FC5A1D3EBB1A006C2A82 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/Mac/SwiftyJSON.framework; sourceTree = "<group>"; };
+		FA94FC5E1D3ED5BB006C2A82 /* Charts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Charts.framework; path = Carthage/Build/Mac/Charts.framework; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FA70FCBE1D3EA484008BF487 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA94FC611D3EEED8006C2A82 /* Charts.framework in Frameworks */,
+				FA94FC621D3EEED8006C2A82 /* SwiftyJSON.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA70FCCD1D3EA484008BF487 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA70FCD81D3EA484008BF487 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		FA70FCB81D3EA484008BF487 = {
+			isa = PBXGroup;
+			children = (
+				FA94FC5E1D3ED5BB006C2A82 /* Charts.framework */,
+				FA94FC5A1D3EBB1A006C2A82 /* SwiftyJSON.framework */,
+				FA70FCC31D3EA484008BF487 /* TrafficSweetSpot */,
+				FA70FCD31D3EA484008BF487 /* TrafficSweetSpotTests */,
+				FA70FCDE1D3EA484008BF487 /* TrafficSweetSpotUITests */,
+				FA70FCC21D3EA484008BF487 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		FA70FCC21D3EA484008BF487 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FA70FCC11D3EA484008BF487 /* TrafficSweetSpot.app */,
+				FA70FCD01D3EA484008BF487 /* TrafficSweetSpotTests.xctest */,
+				FA70FCDB1D3EA484008BF487 /* TrafficSweetSpotUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FA70FCC31D3EA484008BF487 /* TrafficSweetSpot */ = {
+			isa = PBXGroup;
+			children = (
+				FA70FCC41D3EA484008BF487 /* AppDelegate.swift */,
+				FA70FCC61D3EA484008BF487 /* Assets.xcassets */,
+				FA94FC561D3EABF9006C2A82 /* StatusMenuController.swift */,
+				FA4A72CB1D3F38C300FE113B /* PreferencesWindow.swift */,
+				FA4A72CC1D3F38C300FE113B /* PreferencesWindow.xib */,
+				FA4A72CF1D3F52A400FE113B /* AboutWindow.swift */,
+				FA4A72D01D3F52A400FE113B /* AboutWindow.xib */,
+				FA70FCC81D3EA484008BF487 /* MainMenu.xib */,
+				FA4A72C91D3F019600FE113B /* TravelTimeChartView.swift */,
+				FA70FCCB1D3EA484008BF487 /* Info.plist */,
+				FA94FC581D3EAD98006C2A82 /* MapsDistanceMatrixAPI.swift */,
+			);
+			path = TrafficSweetSpot;
+			sourceTree = "<group>";
+		};
+		FA70FCD31D3EA484008BF487 /* TrafficSweetSpotTests */ = {
+			isa = PBXGroup;
+			children = (
+				FA70FCD41D3EA484008BF487 /* TrafficSweetSpotTests.swift */,
+				FA70FCD61D3EA484008BF487 /* Info.plist */,
+			);
+			path = TrafficSweetSpotTests;
+			sourceTree = "<group>";
+		};
+		FA70FCDE1D3EA484008BF487 /* TrafficSweetSpotUITests */ = {
+			isa = PBXGroup;
+			children = (
+				FA70FCDF1D3EA484008BF487 /* TrafficSweetSpotUITests.swift */,
+				FA70FCE11D3EA484008BF487 /* Info.plist */,
+			);
+			path = TrafficSweetSpotUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FA70FCC01D3EA484008BF487 /* TrafficSweetSpot */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FA70FCE41D3EA484008BF487 /* Build configuration list for PBXNativeTarget "TrafficSweetSpot" */;
+			buildPhases = (
+				FA70FCBD1D3EA484008BF487 /* Sources */,
+				FA70FCBE1D3EA484008BF487 /* Frameworks */,
+				FA70FCBF1D3EA484008BF487 /* Resources */,
+				FA94FC641D3EEF39006C2A82 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TrafficSweetSpot;
+			productName = TrafficSweetSpot;
+			productReference = FA70FCC11D3EA484008BF487 /* TrafficSweetSpot.app */;
+			productType = "com.apple.product-type.application";
+		};
+		FA70FCCF1D3EA484008BF487 /* TrafficSweetSpotTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FA70FCE71D3EA484008BF487 /* Build configuration list for PBXNativeTarget "TrafficSweetSpotTests" */;
+			buildPhases = (
+				FA70FCCC1D3EA484008BF487 /* Sources */,
+				FA70FCCD1D3EA484008BF487 /* Frameworks */,
+				FA70FCCE1D3EA484008BF487 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FA70FCD21D3EA484008BF487 /* PBXTargetDependency */,
+			);
+			name = TrafficSweetSpotTests;
+			productName = TrafficSweetSpotTests;
+			productReference = FA70FCD01D3EA484008BF487 /* TrafficSweetSpotTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		FA70FCDA1D3EA484008BF487 /* TrafficSweetSpotUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FA70FCEA1D3EA484008BF487 /* Build configuration list for PBXNativeTarget "TrafficSweetSpotUITests" */;
+			buildPhases = (
+				FA70FCD71D3EA484008BF487 /* Sources */,
+				FA70FCD81D3EA484008BF487 /* Frameworks */,
+				FA70FCD91D3EA484008BF487 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FA70FCDD1D3EA484008BF487 /* PBXTargetDependency */,
+			);
+			name = TrafficSweetSpotUITests;
+			productName = TrafficSweetSpotUITests;
+			productReference = FA70FCDB1D3EA484008BF487 /* TrafficSweetSpotUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FA70FCB91D3EA484008BF487 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "Freddie Meyer";
+				TargetAttributes = {
+					FA70FCC01D3EA484008BF487 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+					FA70FCCF1D3EA484008BF487 = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = FA70FCC01D3EA484008BF487;
+					};
+					FA70FCDA1D3EA484008BF487 = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = FA70FCC01D3EA484008BF487;
+					};
+				};
+			};
+			buildConfigurationList = FA70FCBC1D3EA484008BF487 /* Build configuration list for PBXProject "TrafficSweetSpot" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = FA70FCB81D3EA484008BF487;
+			productRefGroup = FA70FCC21D3EA484008BF487 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FA70FCC01D3EA484008BF487 /* TrafficSweetSpot */,
+				FA70FCCF1D3EA484008BF487 /* TrafficSweetSpotTests */,
+				FA70FCDA1D3EA484008BF487 /* TrafficSweetSpotUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FA70FCBF1D3EA484008BF487 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA70FCC71D3EA484008BF487 /* Assets.xcassets in Resources */,
+				FA4A72CE1D3F38C300FE113B /* PreferencesWindow.xib in Resources */,
+				FA70FCCA1D3EA484008BF487 /* MainMenu.xib in Resources */,
+				FA4A72D21D3F52A400FE113B /* AboutWindow.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA70FCCE1D3EA484008BF487 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA70FCD91D3EA484008BF487 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		FA94FC641D3EEF39006C2A82 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/Mac/SwiftyJSON.framework",
+				"$(SRCROOT)/Carthage/Build/Mac/Charts.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FA70FCBD1D3EA484008BF487 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA94FC571D3EABF9006C2A82 /* StatusMenuController.swift in Sources */,
+				FA4A72CD1D3F38C300FE113B /* PreferencesWindow.swift in Sources */,
+				FA70FCC51D3EA484008BF487 /* AppDelegate.swift in Sources */,
+				FA4A72CA1D3F019600FE113B /* TravelTimeChartView.swift in Sources */,
+				FA94FC591D3EAD98006C2A82 /* MapsDistanceMatrixAPI.swift in Sources */,
+				FA4A72D11D3F52A400FE113B /* AboutWindow.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA70FCCC1D3EA484008BF487 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA70FCD51D3EA484008BF487 /* TrafficSweetSpotTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA70FCD71D3EA484008BF487 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA70FCE01D3EA484008BF487 /* TrafficSweetSpotUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FA70FCD21D3EA484008BF487 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FA70FCC01D3EA484008BF487 /* TrafficSweetSpot */;
+			targetProxy = FA70FCD11D3EA484008BF487 /* PBXContainerItemProxy */;
+		};
+		FA70FCDD1D3EA484008BF487 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FA70FCC01D3EA484008BF487 /* TrafficSweetSpot */;
+			targetProxy = FA70FCDC1D3EA484008BF487 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		FA70FCC81D3EA484008BF487 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FA70FCC91D3EA484008BF487 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		FA70FCE21D3EA484008BF487 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		FA70FCE31D3EA484008BF487 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		FA70FCE51D3EA484008BF487 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
+				INFOPLIST_FILE = TrafficSweetSpot/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fmeyer.TrafficSweetSpot;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		FA70FCE61D3EA484008BF487 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
+				INFOPLIST_FILE = TrafficSweetSpot/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fmeyer.TrafficSweetSpot;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		FA70FCE81D3EA484008BF487 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = TrafficSweetSpotTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.fmeyer.TrafficSweetSpotTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TrafficSweetSpot.app/Contents/MacOS/TrafficSweetSpot";
+			};
+			name = Debug;
+		};
+		FA70FCE91D3EA484008BF487 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = TrafficSweetSpotTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.fmeyer.TrafficSweetSpotTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TrafficSweetSpot.app/Contents/MacOS/TrafficSweetSpot";
+			};
+			name = Release;
+		};
+		FA70FCEB1D3EA484008BF487 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = TrafficSweetSpotUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.fmeyer.TrafficSweetSpotUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = TrafficSweetSpot;
+			};
+			name = Debug;
+		};
+		FA70FCEC1D3EA484008BF487 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = TrafficSweetSpotUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.fmeyer.TrafficSweetSpotUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = TrafficSweetSpot;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FA70FCBC1D3EA484008BF487 /* Build configuration list for PBXProject "TrafficSweetSpot" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA70FCE21D3EA484008BF487 /* Debug */,
+				FA70FCE31D3EA484008BF487 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FA70FCE41D3EA484008BF487 /* Build configuration list for PBXNativeTarget "TrafficSweetSpot" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA70FCE51D3EA484008BF487 /* Debug */,
+				FA70FCE61D3EA484008BF487 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FA70FCE71D3EA484008BF487 /* Build configuration list for PBXNativeTarget "TrafficSweetSpotTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA70FCE81D3EA484008BF487 /* Debug */,
+				FA70FCE91D3EA484008BF487 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FA70FCEA1D3EA484008BF487 /* Build configuration list for PBXNativeTarget "TrafficSweetSpotUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA70FCEB1D3EA484008BF487 /* Debug */,
+				FA70FCEC1D3EA484008BF487 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = FA70FCB91D3EA484008BF487 /* Project object */;
+}
