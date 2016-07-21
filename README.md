@@ -10,4 +10,4 @@ For the starting location and ending location, it needs to be in a specific form
 1+Facebook+Way+Menlo+Park+CA
 ```
 
-![TrafficSweetSpot Image](http://i.imgur.com/Tx5FZTi.png)
+![TrafficSweetSpot Image](http://i.imgur.com/LFjVhGj.png)
