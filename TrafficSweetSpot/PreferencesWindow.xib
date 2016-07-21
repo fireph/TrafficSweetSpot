@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
@@ -8,6 +8,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="PreferencesWindow" customModule="TrafficSweetSpot" customModuleProvider="target">
             <connections>
                 <outlet property="apiKeyInput" destination="Sm4-hk-jYo" id="4zq-yq-O9J"/>
+                <outlet property="cacheInput" destination="g8Z-lU-Kv8" id="UDi-86-Np5"/>
                 <outlet property="destInput" destination="aL3-nC-tzM" id="rHA-KT-hiS"/>
                 <outlet property="originInput" destination="KIm-G7-ceC" id="j9s-bO-odF"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
@@ -22,7 +23,7 @@
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" id="se5-gp-TjO">
                 <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
-                <autoresizingMask key="autoresizingMask"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KIm-G7-ceC">
                         <rect key="frame" x="132" y="198" width="328" height="22"/>
@@ -82,6 +83,29 @@
                             <action selector="saveClicked:" target="-2" id="JYP-WB-UIb"/>
                         </connections>
                     </button>
+                    <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g8Z-lU-Kv8" userLabel="Cache Input">
+                        <rect key="frame" x="130" y="136" width="333" height="26"/>
+                        <popUpButtonCell key="cell" type="push" title="6 hours" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="qXV-SI-ftd" id="reT-yh-1Hh">
+                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="menu"/>
+                            <menu key="menu" id="5nA-La-ZmF">
+                                <items>
+                                    <menuItem title="3 hours" id="MH6-Jg-F5c"/>
+                                    <menuItem title="6 hours" state="on" id="qXV-SI-ftd"/>
+                                    <menuItem title="12 hours" id="Ldx-SU-oTm"/>
+                                    <menuItem title="24 hours" id="iUa-25-Urg"/>
+                                </items>
+                            </menu>
+                        </popUpButtonCell>
+                    </popUpButton>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CdR-se-RCy">
+                        <rect key="frame" x="18" y="141" width="72" height="17"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Cache Size" id="oS5-dd-Sf6">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                 </subviews>
             </view>
             <connections>

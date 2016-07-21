@@ -19,7 +19,7 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
     var preferencesWindow: PreferencesWindow!
 
     let INTERVAL_TIME_IN_SECONDS = 300.0
-    let THROW_AWAY_DATA_AFTER_MINUTES = 120.0
+    let THROW_AWAY_INTERVAL_MIN = 60.0
 
     let statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(NSVariableStatusItemLength)
     let mapsAPI = MapsDistanceMatrixAPI()
@@ -50,11 +50,27 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
         NSRunLoop.mainRunLoop().addTimer(alarm, forMode: NSRunLoopCommonModes)
     }
     
+    func getCacheSizeFromString(cacheString: String) -> Double {
+        switch cacheString {
+        case "3 hours":
+            return 3.0
+        case "6 hours":
+            return 6.0
+        case "12 hours":
+            return 12.0
+        case "24 hours":
+            return 24.0
+        default:
+            return 6.0
+        }
+    }
+    
     func updateTravelTime() {
         let defaults = NSUserDefaults.standardUserDefaults()
         let apiKey = defaults.stringForKey("apiKey")
         let origin = defaults.stringForKey("origin")
         let dest = defaults.stringForKey("dest")
+        let cache = getCacheSizeFromString(defaults.stringForKey("cache")!)
         if (apiKey == nil || origin == nil || dest == nil) {
             return;
         }
@@ -65,8 +81,8 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
             }
             self.statusMenu.itemChanged(self.travelTime)
             self.statusMenu.itemChanged(self.lastTimestamp)
-            self.removeOldRoutesIfNeeded(route.timestamp)
-            self.fillMissingRoutesIfNeeded(route.timestamp)
+            self.removeOldRoutesIfNeeded(route.timestamp, cache: cache)
+            self.fillMissingRoutesIfNeeded(route.timestamp, newDuration: route.duration)
             self.appendRouteToSet(route)
         }
     }
@@ -84,10 +100,12 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
         }
     }
     
-    func removeOldRoutesIfNeeded(currentTimestamp: Double) {
+    func removeOldRoutesIfNeeded(currentTimestamp: Double, cache: Double) {
         var firstTimestamp = routes.first?.timestamp
-        if (firstTimestamp < (currentTimestamp - THROW_AWAY_DATA_AFTER_MINUTES*60 - 60*60)) {
-            while routes.count > 0 && firstTimestamp < (currentTimestamp - THROW_AWAY_DATA_AFTER_MINUTES*60) {
+        let cacheTimeSeconds = cache*60.0*60.0
+        let throwAwayIntervalSeconds = THROW_AWAY_INTERVAL_MIN*60.0
+        if (firstTimestamp < (currentTimestamp - cacheTimeSeconds - throwAwayIntervalSeconds)) {
+            while routes.count > 0 && firstTimestamp < (currentTimestamp - cacheTimeSeconds) {
                 routes.removeFirst()
                 firstTimestamp = routes.first?.timestamp
             }
@@ -96,22 +114,32 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
             statusMenu.itemChanged(travelTimeChartMenuItem)
         }
     }
+    
+    func getMidpointDuration(lastRoute: Route, time: Double, currentTimestamp: Double, newDuration: Int) -> Int {
+        let ratio = (time - lastRoute.timestamp)/(currentTimestamp - lastRoute.timestamp)
+        return lastRoute.duration + Int(ratio)*(newDuration - lastRoute.duration)
+    }
 
-    func fillMissingRoutesIfNeeded(currentTimestamp: Double) {
+    func fillMissingRoutesIfNeeded(currentTimestamp: Double, newDuration: Int) {
         if (self.routes.count == 0) {
             return;
         }
-        var prevTime = self.routes.last!.timestamp
-        if (prevTime <= currentTimestamp - (2 * INTERVAL_TIME_IN_SECONDS)) {
-            while prevTime <= currentTimestamp - INTERVAL_TIME_IN_SECONDS {
-                prevTime += INTERVAL_TIME_IN_SECONDS
+        let lastRoute = self.routes.last!
+        var time = self.routes.last!.timestamp
+        if (time <= currentTimestamp - (2 * INTERVAL_TIME_IN_SECONDS)) {
+            while time <= currentTimestamp - INTERVAL_TIME_IN_SECONDS {
+                time += INTERVAL_TIME_IN_SECONDS
                 let route = Route(
-                    duration: 0,
-                    durationString: "0 min",
-                    distance: 0,
-                    distanceString: "0 mi",
-                    timestamp: prevTime,
-                    timestampString: getTimestampString(prevTime)
+                    duration: getMidpointDuration(
+                        lastRoute,
+                        time: time,
+                        currentTimestamp: currentTimestamp,
+                        newDuration: newDuration),
+                    durationString: "",
+                    distance: lastRoute.distance,
+                    distanceString: lastRoute.distanceString,
+                    timestamp: time,
+                    timestampString: getTimestampString(time)
                 )
                 self.appendRouteToSet(route)
             }
@@ -127,7 +155,7 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
         }
         routesSet = LineChartDataSet(yVals: yVals1, label: "Travel Time (min)")
         routesSet.axisDependency = .Left
-        routesSet.setColor(NSUIColor.blueColor().colorWithAlphaComponent(1.0)) // our line's opacity is 50%
+        routesSet.setColor(NSUIColor.blueColor().colorWithAlphaComponent(1.0))
         routesSet.lineWidth = 2.0
         routesSet.drawFilledEnabled = true
         routesSet.fillColor = NSUIColor.cyanColor()

@@ -16,6 +16,7 @@ class PreferencesWindow: NSWindowController {
     @IBOutlet weak var apiKeyInput: NSTextField!
     @IBOutlet weak var originInput: NSTextField!
     @IBOutlet weak var destInput: NSTextField!
+    @IBOutlet weak var cacheInput: NSPopUpButton!
     
     var delegate: PreferencesWindowDelegate?
 
@@ -33,6 +34,9 @@ class PreferencesWindow: NSWindowController {
         apiKeyInput.stringValue = defaults.stringForKey("apiKey")!
         originInput.stringValue = defaults.stringForKey("origin")!
         destInput.stringValue = defaults.stringForKey("dest")!
+        if let cacheVal = defaults.stringForKey("cache") {
+            cacheInput.stringValue = cacheVal
+        }
     }
 
     @IBAction func saveClicked(sender: AnyObject) {
@@ -40,6 +44,7 @@ class PreferencesWindow: NSWindowController {
         defaults.setValue(apiKeyInput.stringValue, forKey: "apiKey")
         defaults.setValue(originInput.stringValue, forKey: "origin")
         defaults.setValue(destInput.stringValue, forKey: "dest")
+        defaults.setValue(cacheInput.stringValue, forKey: "cache")
         delegate?.preferencesDidUpdate()
         self.window?.close()
     }
