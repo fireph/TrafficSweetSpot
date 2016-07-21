@@ -31,9 +31,15 @@ class PreferencesWindow: NSWindowController {
         self.window?.title = "Preferences"
         NSApp.activateIgnoringOtherApps(true)
         let defaults = NSUserDefaults.standardUserDefaults()
-        apiKeyInput.stringValue = defaults.stringForKey("apiKey")!
-        originInput.stringValue = defaults.stringForKey("origin")!
-        destInput.stringValue = defaults.stringForKey("dest")!
+        if let apiKeyVal = defaults.stringForKey("apiKey") {
+            apiKeyInput.stringValue = apiKeyVal
+        }
+        if let originVal = defaults.stringForKey("origin") {
+            originInput.stringValue = originVal
+        }
+        if let destVal = defaults.stringForKey("dest") {
+            destInput.stringValue = destVal
+        }
         if let cacheVal = defaults.stringForKey("cache") {
             cacheInput.stringValue = cacheVal
         }
@@ -45,6 +51,7 @@ class PreferencesWindow: NSWindowController {
         defaults.setValue(originInput.stringValue, forKey: "origin")
         defaults.setValue(destInput.stringValue, forKey: "dest")
         defaults.setValue(cacheInput.stringValue, forKey: "cache")
+        defaults.synchronize()
         delegate?.preferencesDidUpdate()
         self.window?.close()
     }

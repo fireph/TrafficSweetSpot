@@ -70,10 +70,11 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
         let apiKey = defaults.stringForKey("apiKey")
         let origin = defaults.stringForKey("origin")
         let dest = defaults.stringForKey("dest")
-        let cache = getCacheSizeFromString(defaults.stringForKey("cache")!)
-        if (apiKey == nil || origin == nil || dest == nil) {
+        let cacheString = defaults.stringForKey("cache")
+        if (apiKey == nil || origin == nil || dest == nil || cacheString == nil) {
             return;
         }
+        let cache = getCacheSizeFromString(cacheString!)
         mapsAPI.fetchTravelTime(apiKey!, origin: origin!, dest: dest!) { route in
             dispatch_async(dispatch_get_main_queue()) {
                 self.travelTime.title = "Current travel time: \(route.durationString)"
