@@ -8,6 +8,20 @@
 
 import Cocoa
 import Charts
+import SwiftyJSON
+
+extension String {
+    func toBool() -> Bool? {
+        switch self {
+        case "True", "true", "yes", "1":
+            return true
+        case "False", "false", "no", "0":
+            return false
+        default:
+            return nil
+        }
+    }
+}
 
 class StatusMenuController: NSObject, PreferencesWindowDelegate {
     @IBOutlet weak var statusMenu: NSMenu!
@@ -15,15 +29,28 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
     @IBOutlet weak var lastTimestamp: NSMenuItem!
     @IBOutlet weak var travelTimeChartMenuItem: NSMenuItem!
     @IBOutlet weak var travelTimeChart: TravelTimeChartView!
-    var aboutWindow: AboutWindow!
-    var preferencesWindow: PreferencesWindow!
+    var aboutWindow: AboutWindow?
+    var preferencesWindow: PreferencesWindow?
+    var updateWindow: UpdateWindow?
 
+    let CHECK_FOR_UPDATES_INTERVAL_DAYS = 1.0
     let INTERVAL_TIME_IN_SECONDS = 300.0
     let THROW_AWAY_INTERVAL_MIN = 60.0
 
     let statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(NSVariableStatusItemLength)
     let mapsAPI = MapsDistanceMatrixAPI()
+    let versionChecker = VersionChecker()
     
+    // defaults
+    var defaults : NSUserDefaults?
+    var apiKey : String?
+    var origin : String?
+    var dest : String?
+    var cacheString : String?
+    var checkForUpdates : Bool = true
+    
+    var checkForUpdatesTimer : NSTimer?
+
     var routes : [Route] = []
     var routeTimestamps : [String] = []
     var routesSet : LineChartDataSet!
@@ -36,8 +63,10 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
         statusItem.menu = statusMenu
         aboutWindow = AboutWindow()
         preferencesWindow = PreferencesWindow()
-        preferencesWindow.delegate = self
+        updateWindow = UpdateWindow()
+        preferencesWindow?.delegate = self
         travelTimeChartMenuItem.view = travelTimeChart
+        initDefaults()
         initChartData()
         updateTravelTime()
         let alarm = NSTimer.scheduledTimerWithTimeInterval(
@@ -48,6 +77,25 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
             repeats: true
         )
         NSRunLoop.mainRunLoop().addTimer(alarm, forMode: NSRunLoopCommonModes)
+    }
+    
+    func checkForUpdate() {
+        versionChecker.isAppUpdatedToNewestVersion() { isUpdated in
+            if (!isUpdated) {
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.updateWindow?.showWindow(nil)
+                }
+            }
+        }
+    }
+    
+    func initDefaults() {
+        defaults = NSUserDefaults.standardUserDefaults()
+        apiKey = defaults?.stringForKey("apiKey")
+        origin = defaults?.stringForKey("origin")
+        dest = defaults?.stringForKey("dest")
+        cacheString = defaults?.stringForKey("cache")
+        refreshUpdateDefault()
     }
     
     func getCacheSizeFromString(cacheString: String) -> Double {
@@ -66,11 +114,6 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
     }
     
     func updateTravelTime() {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let apiKey = defaults.stringForKey("apiKey")
-        let origin = defaults.stringForKey("origin")
-        let dest = defaults.stringForKey("dest")
-        let cacheString = defaults.stringForKey("cache")
         if (apiKey == nil || origin == nil || dest == nil || cacheString == nil) {
             return;
         }
@@ -170,17 +213,58 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
     }
     
     func preferencesDidUpdate() {
-        routes = []
-        initChartData()
-        updateTravelTime()
+        let apiKeyNew = defaults?.stringForKey("apiKey")
+        let originNew = defaults?.stringForKey("origin")
+        let destNew = defaults?.stringForKey("dest")
+        if (apiKeyNew != apiKey || originNew != origin || destNew != nil) {
+            routes = []
+            initChartData()
+            updateTravelTime()
+        }
+        apiKey = apiKeyNew
+        origin = originNew
+        dest = destNew
+        cacheString = defaults?.stringForKey("cache")
+        refreshUpdateDefault()
+    }
+    
+    func refreshUpdateDefault() {
+        if let checkForUpdatesTemp : Bool = defaults?.stringForKey("checkForUpdates")?.toBool() {
+            checkForUpdates = checkForUpdatesTemp
+        } else {
+            checkForUpdates = true
+        }
+        if (checkForUpdates && checkForUpdatesTimer == nil) {
+            startUpdateCheckTimer()
+        } else if (!checkForUpdates && checkForUpdatesTimer != nil) {
+            stopUpdateCheckTimer()
+        }
+    }
+    
+    func startUpdateCheckTimer() {
+        checkForUpdate()
+        checkForUpdatesTimer?.invalidate()
+        checkForUpdatesTimer = NSTimer.scheduledTimerWithTimeInterval(
+            CHECK_FOR_UPDATES_INTERVAL_DAYS*24.0*60.0*60.0,
+            target: self,
+            selector: #selector(StatusMenuController.checkForUpdate),
+            userInfo: nil,
+            repeats: true
+        )
+        NSRunLoop.mainRunLoop().addTimer(checkForUpdatesTimer!, forMode: NSRunLoopCommonModes)
+    }
+    
+    func stopUpdateCheckTimer() {
+        checkForUpdatesTimer?.invalidate()
+        checkForUpdatesTimer = nil
     }
 
     @IBAction func aboutClicked(sender: AnyObject) {
-        aboutWindow.showWindow(nil)
+        aboutWindow?.showWindow(nil)
     }
     
     @IBAction func preferencesClicked(sender: AnyObject) {
-        preferencesWindow.showWindow(nil)
+        preferencesWindow?.showWindow(nil)
     }
 
     @IBAction func quitClicked(sender: NSMenuItem) {

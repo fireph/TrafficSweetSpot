@@ -17,6 +17,7 @@ class PreferencesWindow: NSWindowController {
     @IBOutlet weak var originInput: NSTextField!
     @IBOutlet weak var destInput: NSTextField!
     @IBOutlet weak var cacheInput: NSPopUpButton!
+    @IBOutlet weak var checkForUpdatesCheckBox: NSButton!
     
     var delegate: PreferencesWindowDelegate?
 
@@ -43,6 +44,9 @@ class PreferencesWindow: NSWindowController {
         if let cacheVal = defaults.stringForKey("cache") {
             cacheInput.stringValue = cacheVal
         }
+        if let checkForUpdatesVal = defaults.stringForKey("checkForUpdates") {
+            checkForUpdatesCheckBox.stringValue = checkForUpdatesVal
+        }
     }
 
     @IBAction func saveClicked(sender: AnyObject) {
@@ -51,6 +55,7 @@ class PreferencesWindow: NSWindowController {
         defaults.setValue(originInput.stringValue, forKey: "origin")
         defaults.setValue(destInput.stringValue, forKey: "dest")
         defaults.setValue(cacheInput.stringValue, forKey: "cache")
+        defaults.setValue(checkForUpdatesCheckBox.stringValue, forKey: "checkForUpdates")
         defaults.synchronize()
         delegate?.preferencesDidUpdate()
         self.window?.close()

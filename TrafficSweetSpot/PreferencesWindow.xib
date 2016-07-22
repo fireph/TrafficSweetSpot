@@ -9,6 +9,7 @@
             <connections>
                 <outlet property="apiKeyInput" destination="Sm4-hk-jYo" id="4zq-yq-O9J"/>
                 <outlet property="cacheInput" destination="g8Z-lU-Kv8" id="UDi-86-Np5"/>
+                <outlet property="checkForUpdatesCheckBox" destination="RCy-gH-BDb" id="A9M-uB-dzN"/>
                 <outlet property="destInput" destination="aL3-nC-tzM" id="rHA-KT-hiS"/>
                 <outlet property="originInput" destination="KIm-G7-ceC" id="j9s-bO-odF"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
@@ -20,7 +21,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="480" height="270"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" id="se5-gp-TjO">
                 <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -106,6 +107,13 @@
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RCy-gH-BDb">
+                        <rect key="frame" x="18" y="109" width="444" height="18"/>
+                        <buttonCell key="cell" type="check" title="Automatically Check For Updates" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="kaY-n3-f5a">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                    </button>
                 </subviews>
             </view>
             <connections>

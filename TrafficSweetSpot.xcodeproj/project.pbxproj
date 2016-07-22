@@ -22,6 +22,9 @@
 		FA94FC611D3EEED8006C2A82 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA94FC5E1D3ED5BB006C2A82 /* Charts.framework */; };
 		FA94FC621D3EEED8006C2A82 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA94FC5A1D3EBB1A006C2A82 /* SwiftyJSON.framework */; };
 		FAFFA9D91D41819600D49A59 /* NSTextFieldWithKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFFA9D81D41819600D49A59 /* NSTextFieldWithKeyboard.swift */; };
+		FAFFA9DB1D41B1A600D49A59 /* VersionChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFFA9DA1D41B1A600D49A59 /* VersionChecker.swift */; };
+		FAFFA9DE1D41F7D700D49A59 /* UpdateWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFFA9DC1D41F7D700D49A59 /* UpdateWindow.swift */; };
+		FAFFA9DF1D41F7D700D49A59 /* UpdateWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAFFA9DD1D41F7D700D49A59 /* UpdateWindow.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +66,9 @@
 		FA94FC5A1D3EBB1A006C2A82 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/Mac/SwiftyJSON.framework; sourceTree = "<group>"; };
 		FA94FC5E1D3ED5BB006C2A82 /* Charts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Charts.framework; path = Carthage/Build/Mac/Charts.framework; sourceTree = "<group>"; };
 		FAFFA9D81D41819600D49A59 /* NSTextFieldWithKeyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSTextFieldWithKeyboard.swift; sourceTree = "<group>"; };
+		FAFFA9DA1D41B1A600D49A59 /* VersionChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionChecker.swift; sourceTree = "<group>"; };
+		FAFFA9DC1D41F7D700D49A59 /* UpdateWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateWindow.swift; sourceTree = "<group>"; };
+		FAFFA9DD1D41F7D700D49A59 /* UpdateWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpdateWindow.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,11 +130,14 @@
 				FAFFA9D81D41819600D49A59 /* NSTextFieldWithKeyboard.swift */,
 				FA4A72CC1D3F38C300FE113B /* PreferencesWindow.xib */,
 				FA4A72CF1D3F52A400FE113B /* AboutWindow.swift */,
+				FAFFA9DC1D41F7D700D49A59 /* UpdateWindow.swift */,
+				FAFFA9DD1D41F7D700D49A59 /* UpdateWindow.xib */,
 				FA4A72D01D3F52A400FE113B /* AboutWindow.xib */,
 				FA70FCC81D3EA484008BF487 /* MainMenu.xib */,
 				FA4A72C91D3F019600FE113B /* TravelTimeChartView.swift */,
 				FA70FCCB1D3EA484008BF487 /* Info.plist */,
 				FA94FC581D3EAD98006C2A82 /* MapsDistanceMatrixAPI.swift */,
+				FAFFA9DA1D41B1A600D49A59 /* VersionChecker.swift */,
 			);
 			path = TrafficSweetSpot;
 			sourceTree = "<group>";
@@ -259,6 +268,7 @@
 				FA70FCC71D3EA484008BF487 /* Assets.xcassets in Resources */,
 				FA4A72CE1D3F38C300FE113B /* PreferencesWindow.xib in Resources */,
 				FA70FCCA1D3EA484008BF487 /* MainMenu.xib in Resources */,
+				FAFFA9DF1D41F7D700D49A59 /* UpdateWindow.xib in Resources */,
 				FA4A72D21D3F52A400FE113B /* AboutWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -302,8 +312,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAFFA9DE1D41F7D700D49A59 /* UpdateWindow.swift in Sources */,
 				FAFFA9D91D41819600D49A59 /* NSTextFieldWithKeyboard.swift in Sources */,
 				FA94FC571D3EABF9006C2A82 /* StatusMenuController.swift in Sources */,
+				FAFFA9DB1D41B1A600D49A59 /* VersionChecker.swift in Sources */,
 				FA4A72CD1D3F38C300FE113B /* PreferencesWindow.swift in Sources */,
 				FA70FCC51D3EA484008BF487 /* AppDelegate.swift in Sources */,
 				FA4A72CA1D3F019600FE113B /* TravelTimeChartView.swift in Sources */,
