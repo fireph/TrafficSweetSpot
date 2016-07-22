@@ -1,6 +1,6 @@
 # TrafficSweetSpot
 
-This is simple Mac status bar app that can give driving commute times between two places. It will track the time it takes in a graph so that you can see how history data for driving time.
+This is simple Mac status bar app that can give driving times between two places. It will track the driving time in a graph so that you can see the historical data for your route. I use it to track my commute and know the best time to leave the office! :)
 
 You'll need a Google Maps API key for the distance matrix API for this app to work. You can get at API key here: https://developers.google.com/maps/documentation/distance-matrix/
 
