@@ -52,16 +52,16 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
     
     func getCacheSizeFromString(cacheString: String) -> Double {
         switch cacheString {
-        case "3 hours":
-            return 3.0
-        case "6 hours":
-            return 6.0
-        case "12 hours":
-            return 12.0
-        case "24 hours":
-            return 24.0
-        default:
-            return 6.0
+            case "3 hours":
+                return 3.0
+            case "6 hours":
+                return 6.0
+            case "12 hours":
+                return 12.0
+            case "24 hours":
+                return 24.0
+            default:
+                return 6.0
         }
     }
     
