@@ -216,15 +216,16 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
         let apiKeyNew = defaults?.stringForKey("apiKey")
         let originNew = defaults?.stringForKey("origin")
         let destNew = defaults?.stringForKey("dest")
-        if (apiKeyNew != apiKey || originNew != origin || destNew != nil) {
-            routes = []
-            initChartData()
-            updateTravelTime()
-        }
+        let shouldResetData = (apiKeyNew != apiKey || originNew != origin || destNew != dest)
         apiKey = apiKeyNew
         origin = originNew
         dest = destNew
         cacheString = defaults?.stringForKey("cache")
+        if (shouldResetData) {
+            routes = []
+            initChartData()
+            updateTravelTime()
+        }
         refreshUpdateDefault()
     }
     
