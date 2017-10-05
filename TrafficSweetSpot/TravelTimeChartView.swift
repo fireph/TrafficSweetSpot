@@ -28,6 +28,7 @@ class TravelTimeChartView: NSView {
                 self.lineChartView.chartDescription?.text = ""
                 self.lineChartView.noDataText = "No data yet"
                 self.lineChartView.xAxis.valueFormatter = TravelTimeChartFormatter()
+                self.lineChartView.xAxis.setLabelCount(5, force: true)
                 self.lineChartView.data = data
             }
         }
