@@ -48,7 +48,6 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
 
     let CHECK_FOR_UPDATES_INTERVAL_DAYS = 1.0
     let INTERVAL_TIME_IN_SECONDS = 300.0
-    let THROW_AWAY_INTERVAL_MIN = 60.0
 
     let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     let mapsAPI = MapsDistanceMatrixAPI()
@@ -64,7 +63,6 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
     
     var checkForUpdatesTimer : Timer?
 
-    var routes : [Route] = []
     var routesSet : LineChartDataSet!
     var routesData : LineChartData!
     
@@ -79,7 +77,7 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
         preferencesWindow?.delegate = self
         travelTimeChartMenuItem.view = travelTimeChart
         initDefaults()
-        initChartData()
+        initChartData(routes: [])
         updateTravelTime()
         let alarm = Timer.scheduledTimer(
             withTimeInterval: INTERVAL_TIME_IN_SECONDS,
@@ -137,17 +135,15 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
             }
             self.statusMenu.itemChanged(self.travelTime)
             self.statusMenu.itemChanged(self.lastTimestamp)
-            self.removeOldRoutesIfNeeded(route.timestamp, cache: cache)
-            self.appendRouteToSet(route)
+            self.appendRouteToSet(route, cache: cache)
         }
     }
     
-    func appendRouteToSet(_ route: Route) {
+    func appendRouteToSet(_ route: Route, cache: Double) {
         if (routesSet != nil && routesData != nil) {
-            self.routes.append(route)
             let entry = ChartDataEntry(x: route.timestamp, y: Double(route.duration)/60.0)
-            let entryAdded = routesSet.addEntry(entry)
-            if (entryAdded) {
+            if (routesSet.addEntry(entry)) {
+                removeOldRoutesIfNeeded(route.timestamp, cache: cache)
                 routesData.notifyDataChanged()
                 travelTimeChart.update()
                 statusMenu.itemChanged(travelTimeChartMenuItem)
@@ -156,21 +152,19 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
     }
     
     func removeOldRoutesIfNeeded(_ currentTimestamp: Double, cache: Double) {
-        var firstTimestamp = routes.first?.timestamp
+        var firstTimestamp = routesSet.entryForIndex(0)?.x
         let cacheTimeSeconds = cache*60.0*60.0
-        let throwAwayIntervalSeconds = THROW_AWAY_INTERVAL_MIN*60.0
-        if (firstTimestamp < (currentTimestamp - cacheTimeSeconds - throwAwayIntervalSeconds)) {
-            while routes.count > 0 && firstTimestamp < (currentTimestamp - cacheTimeSeconds) {
-                routes.removeFirst()
-                firstTimestamp = routes.first?.timestamp
+        while routesSet.entryCount > 0 && firstTimestamp < (currentTimestamp - cacheTimeSeconds) {
+            if (routesSet.removeFirst()) {
+                firstTimestamp = routesSet.entryForIndex(0)?.x
+            } else {
+                // Something went wrong, stop trying to remove entries from the set
+                break
             }
-            initChartData()
-            travelTimeChart.update()
-            statusMenu.itemChanged(travelTimeChartMenuItem)
         }
     }
     
-    func initChartData() {
+    func initChartData(routes: [Route]) {
         var routeValues : [ChartDataEntry] = [ChartDataEntry]()
         for i in 0 ..< routes.count {
             routeValues.append(ChartDataEntry(x: routes[i].timestamp, y: Double(routes[i].duration)/60.0))
@@ -200,8 +194,8 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
         dest = destNew
         cacheString = defaults?.string(forKey: "cache")
         if (shouldResetData) {
-            routes = []
-            initChartData()
+            routesSet.clear()
+            travelTimeChart.update()
             updateTravelTime()
         }
         refreshUpdateDefault()

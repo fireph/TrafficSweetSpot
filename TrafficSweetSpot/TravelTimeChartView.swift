@@ -24,11 +24,14 @@ class TravelTimeChartView: NSView {
         DispatchQueue.main.async {
             if (self.lineChartView != nil) {
                 self.lineChartView.leftAxis.axisMinimum = 0
+                self.lineChartView.leftAxis.setLabelCount(5, force: true)
                 self.lineChartView.rightAxis.axisMinimum = 0
+                self.lineChartView.rightAxis.setLabelCount(5, force: true)
                 self.lineChartView.chartDescription?.text = ""
                 self.lineChartView.noDataText = "No data yet"
                 self.lineChartView.xAxis.valueFormatter = TravelTimeChartFormatter()
                 self.lineChartView.xAxis.setLabelCount(5, force: true)
+                self.lineChartView.xAxis.yOffset = 10.0
                 self.lineChartView.data = data
             }
         }
