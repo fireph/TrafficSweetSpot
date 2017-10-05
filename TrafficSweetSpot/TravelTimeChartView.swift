@@ -13,24 +13,21 @@ class TravelTimeChartView: NSView {
     @IBOutlet weak var lineChartView: LineChartView!
     
     func update() {
-        dispatch_async(dispatch_get_main_queue()) {
+        DispatchQueue.main.async {
             if (self.lineChartView != nil) {
                 self.lineChartView.notifyDataSetChanged()
             }
         }
     }
 
-    func initData(data: LineChartData) {
-        dispatch_async(dispatch_get_main_queue()) {
+    func initData(_ data: LineChartData) {
+        DispatchQueue.main.async {
             if (self.lineChartView != nil) {
-                self.lineChartView.leftAxis.axisMinValue = 0
-                let numberFormatter = NSNumberFormatter()
-                numberFormatter.generatesDecimalNumbers = false
-                self.lineChartView.leftAxis.valueFormatter = numberFormatter
-                self.lineChartView.rightAxis.axisMinValue = 0
-                self.lineChartView.rightAxis.valueFormatter = numberFormatter
-                self.lineChartView.descriptionText = ""
+                self.lineChartView.leftAxis.axisMinimum = 0
+                self.lineChartView.rightAxis.axisMinimum = 0
+                self.lineChartView.chartDescription?.text = ""
                 self.lineChartView.noDataText = "No data yet"
+                self.lineChartView.xAxis.valueFormatter = TravelTimeChartFormatter()
                 self.lineChartView.data = data
             }
         }

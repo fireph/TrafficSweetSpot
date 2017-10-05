@@ -21,20 +21,20 @@ struct Route {
 class MapsDistanceMatrixAPI {
     let BASE_URL = "https://maps.googleapis.com/maps/api/distancematrix/json"
 
-    func fetchTravelTime(apiKey: String, origin: String, dest: String, success: (Route) -> Void) {
-        let session = NSURLSession.sharedSession()
+    func fetchTravelTime(_ apiKey: String, origin: String, dest: String, success: @escaping (Route) -> Void) {
+        let session = URLSession.shared
         // url-escape the query string we're passed
-        let escapedOrigin = origin.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
-        let escapedDest = dest.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
-        let url = NSURL(string: "\(BASE_URL)?mode=driving&departure_time=now&key=\(apiKey)&units=imperial&origins=\(escapedOrigin!)&destinations=\(escapedDest!)")
-        let task = session.dataTaskWithURL(url!) { data, response, err in
+        let escapedOrigin = origin.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+        let escapedDest = dest.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+        let url = URL(string: "\(BASE_URL)?mode=driving&departure_time=now&key=\(apiKey)&units=imperial&origins=\(escapedOrigin!)&destinations=\(escapedDest!)")
+        let task = session.dataTask(with: url!, completionHandler: { data, response, err in
             // first check for a hard error
             if let error = err {
                 NSLog("maps api error: \(error)")
             }
             
             // then check the response code
-            if let httpResponse = response as? NSHTTPURLResponse {
+            if let httpResponse = response as? HTTPURLResponse {
                 switch httpResponse.statusCode {
                 case 200: // all good!
                     if let route = self.routeFromJSONData(data!) {
@@ -43,18 +43,18 @@ class MapsDistanceMatrixAPI {
                 case 401: // unauthorized
                     NSLog("maps api returned an 'unauthorized' response. Did you set your API key?")
                 default:
-                    NSLog("maps api returned response: %d %@", httpResponse.statusCode, NSHTTPURLResponse.localizedStringForStatusCode(httpResponse.statusCode))
+                    NSLog("maps api returned response: %d %@", httpResponse.statusCode, HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))
                 }
             }
-        }
+        }) 
         task.resume()
     }
     
-    func routeFromJSONData(data: NSData) -> Route? {
+    func routeFromJSONData(_ data: Data) -> Route? {
         let json = JSON(data: data)
         let durationJson = json["rows"][0]["elements"][0]["duration_in_traffic"]
         let distanceJson = json["rows"][0]["elements"][0]["distance"]
-        if (durationJson == nil || distanceJson == nil) {
+        if (!durationJson.exists() || !distanceJson.exists()) {
             return nil
         }
         let route = Route(
@@ -69,14 +69,14 @@ class MapsDistanceMatrixAPI {
     }
     
     func getTimestamp() -> Double {
-        let timestamp = NSDate().timeIntervalSince1970
+        let timestamp = Date().timeIntervalSince1970
         return timestamp
     }
     
     func getTimestampString() -> String {
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
-        let timeString = dateFormatter.stringFromDate(NSDate())
+        let timeString = dateFormatter.string(from: Date())
         return timeString
     }
 }

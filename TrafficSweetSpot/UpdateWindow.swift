@@ -18,11 +18,11 @@ class UpdateWindow: NSWindowController {
         self.window?.center()
         self.window?.makeKeyAndOrderFront(nil)
         self.window?.title = "Update available for TrafficSweetSpot!"
-        NSApp.activateIgnoringOtherApps(true)
+        NSApp.activate(ignoringOtherApps: true)
     }
 
-    @IBAction func downloadButtonClick(sender: AnyObject) {
-        NSWorkspace.sharedWorkspace().openURL(NSURL(string: "https://github.com/DungFu/TrafficSweetSpot/releases")!)
+    @IBAction func downloadButtonClick(_ sender: AnyObject) {
+        NSWorkspace.shared().open(URL(string: "https://github.com/DungFu/TrafficSweetSpot/releases")!)
         self.window?.close()
     }
 }

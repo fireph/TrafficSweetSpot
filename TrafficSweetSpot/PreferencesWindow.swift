@@ -30,27 +30,27 @@ class PreferencesWindow: NSWindowController {
         self.window?.center()
         self.window?.makeKeyAndOrderFront(nil)
         self.window?.title = "Preferences"
-        NSApp.activateIgnoringOtherApps(true)
-        let defaults = NSUserDefaults.standardUserDefaults()
-        if let apiKeyVal = defaults.stringForKey("apiKey") {
+        NSApp.activate(ignoringOtherApps: true)
+        let defaults = UserDefaults.standard
+        if let apiKeyVal = defaults.string(forKey: "apiKey") {
             apiKeyInput.stringValue = apiKeyVal
         }
-        if let originVal = defaults.stringForKey("origin") {
+        if let originVal = defaults.string(forKey: "origin") {
             originInput.stringValue = originVal
         }
-        if let destVal = defaults.stringForKey("dest") {
+        if let destVal = defaults.string(forKey: "dest") {
             destInput.stringValue = destVal
         }
-        if let cacheVal = defaults.stringForKey("cache") {
+        if let cacheVal = defaults.string(forKey: "cache") {
             cacheInput.stringValue = cacheVal
         }
-        if let checkForUpdatesVal = defaults.stringForKey("checkForUpdates") {
+        if let checkForUpdatesVal = defaults.string(forKey: "checkForUpdates") {
             checkForUpdatesCheckBox.stringValue = checkForUpdatesVal
         }
     }
 
-    @IBAction func saveClicked(sender: AnyObject) {
-        let defaults = NSUserDefaults.standardUserDefaults()
+    @IBAction func saveClicked(_ sender: AnyObject) {
+        let defaults = UserDefaults.standard
         defaults.setValue(apiKeyInput.stringValue, forKey: "apiKey")
         defaults.setValue(originInput.stringValue, forKey: "origin")
         defaults.setValue(destInput.stringValue, forKey: "dest")

@@ -7,8 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B587CC61DDE04770012D8DB /* MergeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B587CC41DDE04360012D8DB /* MergeTests.swift */; };
+		1B587CC71DDE04780012D8DB /* MergeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B587CC41DDE04360012D8DB /* MergeTests.swift */; };
+		1B587CC81DDE04790012D8DB /* MergeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B587CC41DDE04360012D8DB /* MergeTests.swift */; };
 		2E4FEFE119575BE100351305 /* SwiftyJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 2E4FEFE019575BE100351305 /* SwiftyJSON.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2E4FEFE719575BE100351305 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E4FEFDB19575BE100351305 /* SwiftyJSON.framework */; };
+		5DD502911D9B21810004C112 /* NestedJSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD502901D9B21810004C112 /* NestedJSONTests.swift */; };
+		5DD502921D9B21810004C112 /* NestedJSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD502901D9B21810004C112 /* NestedJSONTests.swift */; };
+		5DD502931D9B21810004C112 /* NestedJSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD502901D9B21810004C112 /* NestedJSONTests.swift */; };
 		7236B4EE1BAC14150020529B /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8491E1D19CD6DAE00CCFAE6 /* SwiftyJSON.swift */; };
 		7236B4F11BAC14150020529B /* SwiftyJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 2E4FEFE019575BE100351305 /* SwiftyJSON.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9C459EF41A910334008C9A41 /* SwiftyJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 2E4FEFE019575BE100351305 /* SwiftyJSON.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -88,10 +94,12 @@
 
 /* Begin PBXFileReference section */
 		030B6CDC1A6E171D00C2D4F1 /* Info-OSX.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-OSX.plist"; sourceTree = "<group>"; };
+		1B587CC41DDE04360012D8DB /* MergeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MergeTests.swift; sourceTree = "<group>"; };
 		2E4FEFDB19575BE100351305 /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E4FEFDF19575BE100351305 /* Info-iOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-iOS.plist"; sourceTree = "<group>"; };
 		2E4FEFE019575BE100351305 /* SwiftyJSON.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftyJSON.h; sourceTree = "<group>"; };
 		2E4FEFE619575BE100351305 /* SwiftyJSON iOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SwiftyJSON iOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5DD502901D9B21810004C112 /* NestedJSONTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NestedJSONTests.swift; sourceTree = "<group>"; };
 		7236B4F61BAC14150020529B /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7236B4F71BAC14150020529B /* Info-tvOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-tvOS.plist"; sourceTree = "<group>"; };
 		9C459EF61A9103B1008C9A41 /* Info-OSX.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-OSX.plist"; sourceTree = "<group>"; };
@@ -179,7 +187,7 @@
 			isa = PBXGroup;
 			children = (
 				2E4FEFDD19575BE100351305 /* Source */,
-				2E4FEFEA19575BE100351305 /* Tests */,
+				2E4FEFEA19575BE100351305 /* SwiftyJSONTests */,
 				2E4FEFDC19575BE100351305 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -219,12 +227,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		2E4FEFEA19575BE100351305 /* Tests */ = {
+		2E4FEFEA19575BE100351305 /* SwiftyJSONTests */ = {
 			isa = PBXGroup;
 			children = (
+				1B587CC41DDE04360012D8DB /* MergeTests.swift */,
 				A885D1DA19CFCFF0002FD4C3 /* Tests.json */,
 				A86BAA0D19EBC32B009EAAEB /* PerformanceTests.swift */,
 				A885D1D119CF1EE6002FD4C3 /* BaseTests.swift */,
+				5DD502901D9B21810004C112 /* NestedJSONTests.swift */,
 				A87080E319E3C2A600CDE086 /* SequenceTypeTests.swift */,
 				A819C4A019E37FC600ADCC3D /* PrintableTests.swift */,
 				A819C49E19E2EE5B00ADCC3D /* SubscriptTests.swift */,
@@ -238,7 +248,8 @@
 				A8B66C8D19E52F4200540692 /* ArrayTests.swift */,
 				2E4FEFEB19575BE100351305 /* Supporting Files */,
 			);
-			path = Tests;
+			name = SwiftyJSONTests;
+			path = Tests/SwiftyJSONTests;
 			sourceTree = "<group>";
 		};
 		2E4FEFEB19575BE100351305 /* Supporting Files */ = {
@@ -422,23 +433,34 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0710;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0820;
 				TargetAttributes = {
 					2E4FEFDA19575BE100351305 = {
 						CreatedOnToolsVersion = 6.0;
+						LastSwiftMigration = 0820;
+						ProvisioningStyle = Automatic;
 					};
 					2E4FEFE519575BE100351305 = {
 						CreatedOnToolsVersion = 6.0;
+						LastSwiftMigration = 0820;
+						ProvisioningStyle = Manual;
 						TestTargetID = 2E4FEFDA19575BE100351305;
+					};
+					7236B4EC1BAC14150020529B = {
+						ProvisioningStyle = Automatic;
 					};
 					9C7DFC5A1A9102BD005AA3F7 = {
 						CreatedOnToolsVersion = 6.1.1;
+						ProvisioningStyle = Automatic;
 					};
 					9C7DFC641A9102BD005AA3F7 = {
 						CreatedOnToolsVersion = 6.1.1;
 					};
 					A8580F731BCF5C5B00DA927B = {
 						CreatedOnToolsVersion = 7.1;
+					};
+					E4D7CCDE1B9465A700EE7221 = {
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -533,8 +555,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B587CC61DDE04770012D8DB /* MergeTests.swift in Sources */,
 				A87080E819E439DA00CDE086 /* NumberTests.swift in Sources */,
 				A87080E419E3C2A600CDE086 /* SequenceTypeTests.swift in Sources */,
+				5DD502911D9B21810004C112 /* NestedJSONTests.swift in Sources */,
 				A86BAA0E19EBC32B009EAAEB /* PerformanceTests.swift in Sources */,
 				A819C49919E1B10300ADCC3D /* RawRepresentableTests.swift in Sources */,
 				A819C49F19E2EE5B00ADCC3D /* SubscriptTests.swift in Sources */,
@@ -569,8 +593,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B587CC71DDE04780012D8DB /* MergeTests.swift in Sources */,
 				9C459EFB1A9103C1008C9A41 /* SequenceTypeTests.swift in Sources */,
 				9C459F001A9103C1008C9A41 /* ComparableTests.swift in Sources */,
+				5DD502921D9B21810004C112 /* NestedJSONTests.swift in Sources */,
 				9C459F021A9103C1008C9A41 /* NumberTests.swift in Sources */,
 				9C459EFF1A9103C1008C9A41 /* RawRepresentableTests.swift in Sources */,
 				9C459EFA1A9103C1008C9A41 /* BaseTests.swift in Sources */,
@@ -589,8 +615,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B587CC81DDE04790012D8DB /* MergeTests.swift in Sources */,
 				A8580F801BCF69A000DA927B /* PerformanceTests.swift in Sources */,
 				A8580F811BCF69A000DA927B /* BaseTests.swift in Sources */,
+				5DD502931D9B21810004C112 /* NestedJSONTests.swift in Sources */,
 				A8580F821BCF69A000DA927B /* SequenceTypeTests.swift in Sources */,
 				A8580F831BCF69A000DA927B /* PrintableTests.swift in Sources */,
 				A8580F841BCF69A000DA927B /* SubscriptTests.swift in Sources */,
@@ -647,8 +675,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -658,7 +688,8 @@
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -670,12 +701,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				METAL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -695,8 +727,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -705,16 +739,20 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				METAL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -727,9 +765,9 @@
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				BITCODE_GENERATION_MODE = bitcode;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -740,6 +778,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.swiftyjson.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = SwiftyJSON;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -748,9 +787,9 @@
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				BITCODE_GENERATION_MODE = bitcode;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -761,34 +800,41 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.swiftyjson.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = SwiftyJSON;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
 		2E4FEFF519575BE100351305 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				DEVELOPMENT_TEAM = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "Tests/Info-iOS.plist";
+				INFOPLIST_FILE = "Tests/SwiftyJSONTests/Info-iOS.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				METAL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.swiftyjson.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		2E4FEFF619575BE100351305 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = "Tests/Info-iOS.plist";
+				CODE_SIGN_IDENTITY = "";
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = "Tests/SwiftyJSONTests/Info-iOS.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				METAL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.swiftyjson.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -797,7 +843,9 @@
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -819,7 +867,9 @@
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -839,6 +889,7 @@
 		9C7DFC6F1A9102BD005AA3F7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
@@ -853,6 +904,7 @@
 				INFOPLIST_FILE = "Source/Info-OSX.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PLIST_FILE_OUTPUT_FORMAT = binary;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.swiftyjson.$(PRODUCT_NAME:rfc1034identifier)";
@@ -865,6 +917,7 @@
 		9C7DFC701A9102BD005AA3F7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -876,6 +929,7 @@
 				INFOPLIST_FILE = "Source/Info-OSX.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PLIST_FILE_OUTPUT_FORMAT = binary;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.swiftyjson.$(PRODUCT_NAME:rfc1034identifier)";
@@ -895,8 +949,9 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "Tests/Info-OSX.plist";
+				INFOPLIST_FILE = "Tests/SwiftyJSONTests/Info-OSX.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.swiftyjson.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -911,8 +966,9 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = "";
-				INFOPLIST_FILE = "Tests/Info-OSX.plist";
+				INFOPLIST_FILE = "Tests/SwiftyJSONTests/Info-OSX.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.swiftyjson.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -923,9 +979,10 @@
 		A8580F7D1BCF5C5B00DA927B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "Tests/Info-tvOS.plist";
+				INFOPLIST_FILE = "Tests/SwiftyJSONTests/Info-tvOS.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tangplin.SwiftyJSON-tvOS-Tests";
@@ -938,10 +995,11 @@
 		A8580F7E1BCF5C5B00DA927B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "Tests/Info-tvOS.plist";
+				INFOPLIST_FILE = "Tests/SwiftyJSONTests/Info-tvOS.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tangplin.SwiftyJSON-tvOS-Tests";
@@ -957,7 +1015,9 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				BITCODE_GENERATION_MODE = bitcode;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -970,6 +1030,7 @@
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "watchsimulator watchos";
 				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
 		};
@@ -979,7 +1040,9 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				BITCODE_GENERATION_MODE = bitcode;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -992,6 +1055,7 @@
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "watchsimulator watchos";
 				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
 		};

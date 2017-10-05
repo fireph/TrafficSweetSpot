@@ -20,15 +20,15 @@ class AboutWindow: NSWindowController {
         self.window?.center()
         self.window?.makeKeyAndOrderFront(nil)
         self.window?.title = "About TrafficSweetSpot"
-        NSApp.activateIgnoringOtherApps(true)
+        NSApp.activate(ignoringOtherApps: true)
         
-        if let version = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String {
+        if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
             self.versionText.stringValue = "Version: "+version
         }
     }
 
-    @IBAction func githubClick(sender: AnyObject) {
-        NSWorkspace.sharedWorkspace().openURL(NSURL(string: "https://github.com/DungFu/TrafficSweetSpot")!)
+    @IBAction func githubClick(_ sender: AnyObject) {
+        NSWorkspace.shared().open(URL(string: "https://github.com/DungFu/TrafficSweetSpot")!)
         self.window?.close()
     }
 }

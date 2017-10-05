@@ -9,20 +9,20 @@
 import Cocoa
 
 @objc protocol UndoActionRespondable {
-    func undo(sender: AnyObject)
+    func undo(_ sender: AnyObject)
 }
 
 @objc protocol RedoActionRespondable {
-    func redo(sender: AnyObject)
+    func redo(_ sender: AnyObject)
 }
 
 class NSTextFieldWithKeyboard: NSTextField {
     
-    private let commandKey = NSEventModifierFlags.CommandKeyMask.rawValue
-    private let commandShiftKey = NSEventModifierFlags.CommandKeyMask.rawValue | NSEventModifierFlags.ShiftKeyMask.rawValue
-    override func performKeyEquivalent(event: NSEvent) -> Bool {
-        if event.type == NSEventType.KeyDown {
-            if (event.modifierFlags.rawValue & NSEventModifierFlags.DeviceIndependentModifierFlagsMask.rawValue) == commandKey {
+    fileprivate let commandKey = NSEventModifierFlags.command.rawValue
+    fileprivate let commandShiftKey = NSEventModifierFlags.command.rawValue | NSEventModifierFlags.shift.rawValue
+    override func performKeyEquivalent(with event: NSEvent) -> Bool {
+        if event.type == NSEventType.keyDown {
+            if (event.modifierFlags.rawValue & NSEventModifierFlags.deviceIndependentFlagsMask.rawValue) == commandKey {
                 switch event.charactersIgnoringModifiers! {
                 case "x":
                     // New Swift 2.2 #selector works for cut, copy, paste and select all
@@ -40,13 +40,13 @@ class NSTextFieldWithKeyboard: NSTextField {
                     break
                 }
             }
-            else if (event.modifierFlags.rawValue & NSEventModifierFlags.DeviceIndependentModifierFlagsMask.rawValue) == commandShiftKey {
+            else if (event.modifierFlags.rawValue & NSEventModifierFlags.deviceIndependentFlagsMask.rawValue) == commandShiftKey {
                 if event.charactersIgnoringModifiers == "Z" {
                     let redoSelector = #selector(RedoActionRespondable.redo(_:))
                     if NSApp.sendAction(redoSelector, to:nil, from:self) { return true }
                 }
             }
         }
-        return super.performKeyEquivalent(event)
+        return super.performKeyEquivalent(with: event)
     }
 }

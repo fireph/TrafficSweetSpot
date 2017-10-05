@@ -9,6 +9,19 @@
 import Cocoa
 import Charts
 import SwiftyJSON
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
 
 extension String {
     func toBool() -> Bool? {
@@ -37,28 +50,27 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
     let INTERVAL_TIME_IN_SECONDS = 300.0
     let THROW_AWAY_INTERVAL_MIN = 60.0
 
-    let statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(NSVariableStatusItemLength)
+    let statusItem = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
     let mapsAPI = MapsDistanceMatrixAPI()
     let versionChecker = VersionChecker()
     
     // defaults
-    var defaults : NSUserDefaults?
+    var defaults : UserDefaults?
     var apiKey : String?
     var origin : String?
     var dest : String?
     var cacheString : String?
     var checkForUpdates : Bool = true
     
-    var checkForUpdatesTimer : NSTimer?
+    var checkForUpdatesTimer : Timer?
 
     var routes : [Route] = []
-    var routeTimestamps : [String] = []
     var routesSet : LineChartDataSet!
     var routesData : LineChartData!
     
     override func awakeFromNib() {
         let icon = NSImage(named: "statusIcon")
-        icon?.template = true // best for dark mode
+        icon?.isTemplate = true // best for dark mode
         statusItem.image = icon
         statusItem.menu = statusMenu
         aboutWindow = AboutWindow()
@@ -69,20 +81,20 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
         initDefaults()
         initChartData()
         updateTravelTime()
-        let alarm = NSTimer.scheduledTimerWithTimeInterval(
-            INTERVAL_TIME_IN_SECONDS,
+        let alarm = Timer.scheduledTimer(
+            timeInterval: INTERVAL_TIME_IN_SECONDS,
             target: self,
             selector: #selector(StatusMenuController.updateTravelTime),
             userInfo: nil,
             repeats: true
         )
-        NSRunLoop.mainRunLoop().addTimer(alarm, forMode: NSRunLoopCommonModes)
+        RunLoop.main.add(alarm, forMode: RunLoopMode.commonModes)
     }
     
     func checkForUpdate() {
         versionChecker.isAppUpdatedToNewestVersion() { isUpdated in
             if (!isUpdated) {
-                dispatch_async(dispatch_get_main_queue()) {
+                DispatchQueue.main.async {
                     self.updateWindow?.showWindow(nil)
                 }
             }
@@ -90,15 +102,15 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
     }
     
     func initDefaults() {
-        defaults = NSUserDefaults.standardUserDefaults()
-        apiKey = defaults?.stringForKey("apiKey")
-        origin = defaults?.stringForKey("origin")
-        dest = defaults?.stringForKey("dest")
-        cacheString = defaults?.stringForKey("cache")
+        defaults = UserDefaults.standard
+        apiKey = defaults?.string(forKey: "apiKey")
+        origin = defaults?.string(forKey: "origin")
+        dest = defaults?.string(forKey: "dest")
+        cacheString = defaults?.string(forKey: "cache")
         refreshUpdateDefault()
     }
     
-    func getCacheSizeFromString(cacheString: String) -> Double {
+    func getCacheSizeFromString(_ cacheString: String) -> Double {
         switch cacheString {
             case "3 hours":
                 return 3.0
@@ -119,32 +131,31 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
         }
         let cache = getCacheSizeFromString(cacheString!)
         mapsAPI.fetchTravelTime(apiKey!, origin: origin!, dest: dest!) { route in
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 self.travelTime.title = "Current travel time: \(route.durationString)"
                 self.lastTimestamp.title = "Last fetched time: \(route.timestampString)"
             }
             self.statusMenu.itemChanged(self.travelTime)
             self.statusMenu.itemChanged(self.lastTimestamp)
             self.removeOldRoutesIfNeeded(route.timestamp, cache: cache)
-            self.fillMissingRoutesIfNeeded(route.timestamp, newDuration: route.duration)
             self.appendRouteToSet(route)
         }
     }
     
-    func appendRouteToSet(route: Route) {
+    func appendRouteToSet(_ route: Route) {
         if (routesSet != nil && routesData != nil) {
-            let index = self.routes.count
             self.routes.append(route)
-            routeTimestamps.append(route.timestampString)
-            routesSet.addEntry(ChartDataEntry(value: Double(route.duration)/60.0, xIndex: index))
-            routesData.addXValue(route.timestampString)
-            routesData.notifyDataChanged()
-            travelTimeChart.update()
-            statusMenu.itemChanged(travelTimeChartMenuItem)
+            let entry = ChartDataEntry(x: route.timestamp, y: Double(route.duration)/60.0)
+            let entryAdded = routesSet.addEntry(entry)
+            if (entryAdded) {
+                routesData.notifyDataChanged()
+                travelTimeChart.update()
+                statusMenu.itemChanged(travelTimeChartMenuItem)
+            }
         }
     }
     
-    func removeOldRoutesIfNeeded(currentTimestamp: Double, cache: Double) {
+    func removeOldRoutesIfNeeded(_ currentTimestamp: Double, cache: Double) {
         var firstTimestamp = routes.first?.timestamp
         let cacheTimeSeconds = cache*60.0*60.0
         let throwAwayIntervalSeconds = THROW_AWAY_INTERVAL_MIN*60.0
@@ -159,68 +170,35 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
         }
     }
     
-    func getMidpointDuration(lastRoute: Route, time: Double, currentTimestamp: Double, newDuration: Int) -> Int {
-        let ratio = (time - lastRoute.timestamp)/(currentTimestamp - lastRoute.timestamp)
-        return lastRoute.duration + Int(ratio)*(newDuration - lastRoute.duration)
-    }
-
-    func fillMissingRoutesIfNeeded(currentTimestamp: Double, newDuration: Int) {
-        if (self.routes.count == 0) {
-            return;
-        }
-        let lastRoute = self.routes.last!
-        var time = self.routes.last!.timestamp
-        if (time <= currentTimestamp - (2 * INTERVAL_TIME_IN_SECONDS)) {
-            while time <= currentTimestamp - INTERVAL_TIME_IN_SECONDS {
-                time += INTERVAL_TIME_IN_SECONDS
-                let route = Route(
-                    duration: getMidpointDuration(
-                        lastRoute,
-                        time: time,
-                        currentTimestamp: currentTimestamp,
-                        newDuration: newDuration),
-                    durationString: "",
-                    distance: lastRoute.distance,
-                    distanceString: lastRoute.distanceString,
-                    timestamp: time,
-                    timestampString: getTimestampString(time)
-                )
-                self.appendRouteToSet(route)
-            }
-        }
-    }
-    
     func initChartData() {
-        routeTimestamps = []
-        var yVals1 : [ChartDataEntry] = [ChartDataEntry]()
+        var routeValues : [ChartDataEntry] = [ChartDataEntry]()
         for i in 0 ..< routes.count {
-            yVals1.append(ChartDataEntry(value: Double(routes[i].duration)/60.0, xIndex: i))
-            routeTimestamps.append(routes[i].timestampString)
+            routeValues.append(ChartDataEntry(x: routes[i].timestamp, y: Double(routes[i].duration)/60.0))
         }
-        routesSet = LineChartDataSet(yVals: yVals1, label: "Travel Time (min)")
-        routesSet.axisDependency = .Left
-        routesSet.setColor(NSUIColor.blueColor().colorWithAlphaComponent(1.0))
+        routesSet = LineChartDataSet(values: routeValues, label: "Travel Time (min)")
+        routesSet.axisDependency = .left
+        routesSet.setColor(NSUIColor.blue.withAlphaComponent(1.0))
         routesSet.lineWidth = 2.0
         routesSet.drawFilledEnabled = true
-        routesSet.fillColor = NSUIColor.cyanColor()
+        routesSet.fillColor = NSUIColor.cyan
         routesSet.circleRadius = 0
-        routesSet.highlightColor = NSUIColor.whiteColor()
+        routesSet.highlightColor = NSUIColor.white
         routesSet.drawValuesEnabled = false
         var dataSets : [LineChartDataSet] = [LineChartDataSet]()
         dataSets.append(routesSet)
-        routesData = LineChartData(xVals: routeTimestamps, dataSets: dataSets)
+        routesData = LineChartData(dataSets: dataSets)
         travelTimeChart.initData(routesData)
     }
     
     func preferencesDidUpdate() {
-        let apiKeyNew = defaults?.stringForKey("apiKey")
-        let originNew = defaults?.stringForKey("origin")
-        let destNew = defaults?.stringForKey("dest")
+        let apiKeyNew = defaults?.string(forKey: "apiKey")
+        let originNew = defaults?.string(forKey: "origin")
+        let destNew = defaults?.string(forKey: "dest")
         let shouldResetData = (apiKeyNew != apiKey || originNew != origin || destNew != dest)
         apiKey = apiKeyNew
         origin = originNew
         dest = destNew
-        cacheString = defaults?.stringForKey("cache")
+        cacheString = defaults?.string(forKey: "cache")
         if (shouldResetData) {
             routes = []
             initChartData()
@@ -230,7 +208,7 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
     }
     
     func refreshUpdateDefault() {
-        if let checkForUpdatesTemp : Bool = defaults?.stringForKey("checkForUpdates")?.toBool() {
+        if let checkForUpdatesTemp : Bool = defaults?.string(forKey: "checkForUpdates")?.toBool() {
             checkForUpdates = checkForUpdatesTemp
         } else {
             checkForUpdates = true
@@ -245,14 +223,14 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
     func startUpdateCheckTimer() {
         checkForUpdate()
         checkForUpdatesTimer?.invalidate()
-        checkForUpdatesTimer = NSTimer.scheduledTimerWithTimeInterval(
-            CHECK_FOR_UPDATES_INTERVAL_DAYS*24.0*60.0*60.0,
+        checkForUpdatesTimer = Timer.scheduledTimer(
+            timeInterval: CHECK_FOR_UPDATES_INTERVAL_DAYS*24.0*60.0*60.0,
             target: self,
             selector: #selector(StatusMenuController.checkForUpdate),
             userInfo: nil,
             repeats: true
         )
-        NSRunLoop.mainRunLoop().addTimer(checkForUpdatesTimer!, forMode: NSRunLoopCommonModes)
+        RunLoop.main.add(checkForUpdatesTimer!, forMode: RunLoopMode.commonModes)
     }
     
     func stopUpdateCheckTimer() {
@@ -260,22 +238,22 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
         checkForUpdatesTimer = nil
     }
 
-    @IBAction func aboutClicked(sender: AnyObject) {
+    @IBAction func aboutClicked(_ sender: AnyObject) {
         aboutWindow?.showWindow(nil)
     }
     
-    @IBAction func preferencesClicked(sender: AnyObject) {
+    @IBAction func preferencesClicked(_ sender: AnyObject) {
         preferencesWindow?.showWindow(nil)
     }
 
-    @IBAction func quitClicked(sender: NSMenuItem) {
-        NSApplication.sharedApplication().terminate(self)
+    @IBAction func quitClicked(_ sender: NSMenuItem) {
+        NSApplication.shared().terminate(self)
     }
     
-    func getTimestampString(timestamp: Double) -> String {
-        let dateFormatter = NSDateFormatter()
+    func getTimestampString(_ timestamp: Double) -> String {
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
-        let timeString = dateFormatter.stringFromDate(NSDate(timeIntervalSinceReferenceDate: timestamp))
+        let timeString = dateFormatter.string(from: Date(timeIntervalSinceReferenceDate: timestamp))
         return timeString
     }
 }
