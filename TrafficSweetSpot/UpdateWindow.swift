@@ -9,8 +9,8 @@
 import Cocoa
 
 class UpdateWindow: NSWindowController {
-    override var windowNibName : String! {
-        return "UpdateWindow"
+    override var windowNibName : NSNib.Name? {
+        return NSNib.Name.init("UpdateWindow")
     }
 
     override func windowDidLoad() {
@@ -22,7 +22,7 @@ class UpdateWindow: NSWindowController {
     }
 
     @IBAction func downloadButtonClick(_ sender: AnyObject) {
-        NSWorkspace.shared().open(URL(string: "https://github.com/DungFu/TrafficSweetSpot/releases")!)
+        NSWorkspace.shared.open(URL(string: "https://github.com/DungFu/TrafficSweetSpot/releases")!)
         self.window?.close()
     }
 }

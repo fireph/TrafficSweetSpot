@@ -11,8 +11,8 @@ import Cocoa
 class AboutWindow: NSWindowController {
     @IBOutlet weak var versionText: NSTextField!
 
-    override var windowNibName : String! {
-        return "AboutWindow"
+    override var windowNibName : NSNib.Name? {
+        return NSNib.Name.init("AboutWindow")
     }
     
     override func windowDidLoad() {
@@ -28,7 +28,7 @@ class AboutWindow: NSWindowController {
     }
 
     @IBAction func githubClick(_ sender: AnyObject) {
-        NSWorkspace.shared().open(URL(string: "https://github.com/DungFu/TrafficSweetSpot")!)
+        NSWorkspace.shared.open(URL(string: "https://github.com/DungFu/TrafficSweetSpot")!)
         self.window?.close()
     }
 }

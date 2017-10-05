@@ -50,7 +50,7 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
     let INTERVAL_TIME_IN_SECONDS = 300.0
     let THROW_AWAY_INTERVAL_MIN = 60.0
 
-    let statusItem = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
+    let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     let mapsAPI = MapsDistanceMatrixAPI()
     let versionChecker = VersionChecker()
     
@@ -69,7 +69,7 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
     var routesData : LineChartData!
     
     override func awakeFromNib() {
-        let icon = NSImage(named: "statusIcon")
+        let icon = NSImage(named: NSImage.Name(rawValue: "statusIcon"))
         icon?.isTemplate = true // best for dark mode
         statusItem.image = icon
         statusItem.menu = statusMenu
@@ -82,11 +82,11 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
         initChartData()
         updateTravelTime()
         let alarm = Timer.scheduledTimer(
-            timeInterval: INTERVAL_TIME_IN_SECONDS,
-            target: self,
-            selector: #selector(StatusMenuController.updateTravelTime),
-            userInfo: nil,
-            repeats: true
+            withTimeInterval: INTERVAL_TIME_IN_SECONDS,
+            repeats: true,
+            block: { (Timer) in
+                self.updateTravelTime()
+            }
         )
         RunLoop.main.add(alarm, forMode: RunLoopMode.commonModes)
     }
@@ -224,11 +224,11 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
         checkForUpdate()
         checkForUpdatesTimer?.invalidate()
         checkForUpdatesTimer = Timer.scheduledTimer(
-            timeInterval: CHECK_FOR_UPDATES_INTERVAL_DAYS*24.0*60.0*60.0,
-            target: self,
-            selector: #selector(StatusMenuController.checkForUpdate),
-            userInfo: nil,
-            repeats: true
+            withTimeInterval: CHECK_FOR_UPDATES_INTERVAL_DAYS*24.0*60.0*60.0,
+            repeats: true,
+            block: { (Timer) in
+                self.checkForUpdate()
+            }
         )
         RunLoop.main.add(checkForUpdatesTimer!, forMode: RunLoopMode.commonModes)
     }
@@ -247,7 +247,7 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
     }
 
     @IBAction func quitClicked(_ sender: NSMenuItem) {
-        NSApplication.shared().terminate(self)
+        NSApplication.shared.terminate(self)
     }
     
     func getTimestampString(_ timestamp: Double) -> String {

@@ -21,8 +21,8 @@ class PreferencesWindow: NSWindowController {
     
     var delegate: PreferencesWindowDelegate?
 
-    override var windowNibName : String! {
-        return "PreferencesWindow"
+    override var windowNibName : NSNib.Name? {
+        return NSNib.Name.init("PreferencesWindow")
     }
 
     override func windowDidLoad() {

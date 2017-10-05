@@ -8,42 +8,32 @@
 
 import Cocoa
 
-@objc protocol UndoActionRespondable {
-    func undo(_ sender: AnyObject)
-}
-
-@objc protocol RedoActionRespondable {
-    func redo(_ sender: AnyObject)
-}
-
+// Copied from https://stackoverflow.com/a/41200377/1815751
 class NSTextFieldWithKeyboard: NSTextField {
     
-    fileprivate let commandKey = NSEventModifierFlags.command.rawValue
-    fileprivate let commandShiftKey = NSEventModifierFlags.command.rawValue | NSEventModifierFlags.shift.rawValue
+    private let commandKey = NSEvent.ModifierFlags.command.rawValue
+    private let commandShiftKey = NSEvent.ModifierFlags.command.rawValue | NSEvent.ModifierFlags.shift.rawValue
     override func performKeyEquivalent(with event: NSEvent) -> Bool {
-        if event.type == NSEventType.keyDown {
-            if (event.modifierFlags.rawValue & NSEventModifierFlags.deviceIndependentFlagsMask.rawValue) == commandKey {
+        if event.type == NSEvent.EventType.keyDown {
+            if (event.modifierFlags.rawValue & NSEvent.ModifierFlags.deviceIndependentFlagsMask.rawValue) == commandKey {
                 switch event.charactersIgnoringModifiers! {
                 case "x":
-                    // New Swift 2.2 #selector works for cut, copy, paste and select all
                     if NSApp.sendAction(#selector(NSText.cut(_:)), to:nil, from:self) { return true }
                 case "c":
                     if NSApp.sendAction(#selector(NSText.copy(_:)), to:nil, from:self) { return true }
                 case "v":
                     if NSApp.sendAction(#selector(NSText.paste(_:)), to:nil, from:self) { return true }
                 case "z":
-                    let undoSelector = #selector(UndoActionRespondable.undo(_:))
-                    if NSApp.sendAction(undoSelector, to:nil, from:self) { return true }
+                    if NSApp.sendAction(Selector(("undo:")), to:nil, from:self) { return true }
                 case "a":
-                    if NSApp.sendAction(#selector(NSText.selectAll(_:)), to:nil, from:self) { return true }
+                    if NSApp.sendAction(#selector(NSResponder.selectAll(_:)), to:nil, from:self) { return true }
                 default:
                     break
                 }
             }
-            else if (event.modifierFlags.rawValue & NSEventModifierFlags.deviceIndependentFlagsMask.rawValue) == commandShiftKey {
+            else if (event.modifierFlags.rawValue & NSEvent.ModifierFlags.deviceIndependentFlagsMask.rawValue) == commandShiftKey {
                 if event.charactersIgnoringModifiers == "Z" {
-                    let redoSelector = #selector(RedoActionRespondable.redo(_:))
-                    if NSApp.sendAction(redoSelector, to:nil, from:self) { return true }
+                    if NSApp.sendAction(Selector(("redo:")), to:nil, from:self) { return true }
                 }
             }
         }
