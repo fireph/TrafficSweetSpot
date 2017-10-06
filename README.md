@@ -10,4 +10,6 @@ The starting location and ending location can be in any format that Google can r
 1 Facebook Way, Menlo Park, CA 94025
 ```
 
-![TrafficSweetSpot Image](https://i.imgur.com/MWtODi1.png)
+![TrafficSweetSpot Context Menu](https://i.imgur.com/MWtODi1.png)
+
+![TrafficSweetSpot Settings Screen](https://i.imgur.com/7MRI8Da.png)
