@@ -48,6 +48,7 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
 
     let CHECK_FOR_UPDATES_INTERVAL_DAYS = 1.0
     let INTERVAL_TIME_IN_SECONDS = 300.0
+    let TIME_BETWEEN_NOTIFICATIONS = 4.0 * 60.0 * 60.0
 
     let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     let mapsAPI = MapsDistanceMatrixAPI()
@@ -62,6 +63,7 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
     var checkForUpdates : Bool = true
     
     var checkForUpdatesTimer : Timer?
+    var lastNotificationTimestamp: Double?
 
     var routesSet : LineChartDataSet!
     var routesData : LineChartData!
@@ -143,6 +145,17 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
         if (routesSet != nil && routesData != nil) {
             let entry = ChartDataEntry(x: route.timestamp, y: Double(route.duration)/60.0)
             if (routesSet.entryCount > 0) {
+                let notificationsEnabled = defaults?.string(forKey: "notificationsEnabled")?.toBool() ?? false
+                let notificationsTime = Double((defaults?.string(forKey: "notificationsTime"))!) ?? -1.0
+                let lastEntryTime = routesSet.entryForIndex(routesSet.entryCount - 1)?.y ?? entry.y
+                if (notificationsEnabled
+                    && entry.x - (lastNotificationTimestamp ?? 0.0) > TIME_BETWEEN_NOTIFICATIONS
+                    && lastEntryTime > notificationsTime
+                    && entry.y <= notificationsTime) {
+                    lastNotificationTimestamp = entry.x
+                    showNotification(subtitle: "Traffic has died down 😀", text: "Travel time is now: " + String(Int(entry.y)) + " minutes")
+                }
+            }
             if (routesSet.addEntry(entry)) {
                 removeOldRoutesIfNeeded(route.timestamp, cache: cache)
                 routesData.notifyDataChanged()
@@ -250,5 +263,14 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
         dateFormatter.dateFormat = "HH:mm"
         let timeString = dateFormatter.string(from: Date(timeIntervalSinceReferenceDate: timestamp))
         return timeString
+    }
+    
+    func showNotification(subtitle: String, text: String) {
+        let notification = NSUserNotification()
+        notification.title = "TrafficSweetSpot"
+        notification.subtitle = subtitle
+        notification.informativeText = text
+        notification.soundName = NSUserNotificationDefaultSoundName
+        NSUserNotificationCenter.default.deliver(notification)
     }
 }
