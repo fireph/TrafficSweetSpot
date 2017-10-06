@@ -142,6 +142,7 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
     func appendRouteToSet(_ route: Route, cache: Double) {
         if (routesSet != nil && routesData != nil) {
             let entry = ChartDataEntry(x: route.timestamp, y: Double(route.duration)/60.0)
+            if (routesSet.entryCount > 0) {
             if (routesSet.addEntry(entry)) {
                 removeOldRoutesIfNeeded(route.timestamp, cache: cache)
                 routesData.notifyDataChanged()
