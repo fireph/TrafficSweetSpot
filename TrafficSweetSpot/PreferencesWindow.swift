@@ -31,9 +31,9 @@ class PreferencesWindow: NSWindowController {
     override func windowDidLoad() {
         super.windowDidLoad()
         self.window?.center()
-        self.window?.makeKeyAndOrderFront(nil)
         self.window?.title = "Preferences"
         NSApp.activate(ignoringOtherApps: true)
+        self.window?.makeKeyAndOrderFront(self)
         let defaults = UserDefaults.standard
         if let apiKeyVal = defaults.string(forKey: "apiKey") {
             apiKeyInput.stringValue = apiKeyVal

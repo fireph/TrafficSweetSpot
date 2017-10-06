@@ -18,9 +18,9 @@ class AboutWindow: NSWindowController {
     override func windowDidLoad() {
         super.windowDidLoad()
         self.window?.center()
-        self.window?.makeKeyAndOrderFront(nil)
         self.window?.title = "About TrafficSweetSpot"
         NSApp.activate(ignoringOtherApps: true)
+        self.window?.makeKeyAndOrderFront(self)
         
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
             self.versionText.stringValue = "Version: "+version

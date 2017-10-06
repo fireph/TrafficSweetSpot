@@ -16,9 +16,9 @@ class UpdateWindow: NSWindowController {
     override func windowDidLoad() {
         super.windowDidLoad()
         self.window?.center()
-        self.window?.makeKeyAndOrderFront(nil)
         self.window?.title = "Update available for TrafficSweetSpot!"
         NSApp.activate(ignoringOtherApps: true)
+        self.window?.makeKeyAndOrderFront(self)
     }
 
     @IBAction func downloadButtonClick(_ sender: AnyObject) {
