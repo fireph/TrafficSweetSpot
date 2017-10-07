@@ -13,3 +13,9 @@ The starting location and ending location can be in any format that Google can r
 ![TrafficSweetSpot Context Menu](https://i.imgur.com/MWtODi1.png)
 
 ![TrafficSweetSpot Settings Screen](https://i.imgur.com/7MRI8Da.png)
+
+If you would like to build yourself:
+1. checkout the repository
+2. run `carthage update --platform macOS` in repository folder
+3. open in Xcode
+4. build :)
