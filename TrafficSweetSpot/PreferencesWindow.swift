@@ -20,6 +20,7 @@ class PreferencesWindow: NSWindowController {
     @IBOutlet weak var notificationsCheckbox: NSButton!
     @IBOutlet weak var notificationsTimeSlider: NSSlider!
     @IBOutlet weak var notificationsTimeLabel: NSTextField!
+    @IBOutlet weak var travelTimeMenuBarCheckBox: NSButton!
     @IBOutlet weak var checkForUpdatesCheckBox: NSButton!
     
     var delegate: PreferencesWindowDelegate?
@@ -53,6 +54,9 @@ class PreferencesWindow: NSWindowController {
         if let notificationsTimeVal = defaults.string(forKey: "notificationsTime") {
             notificationsTimeSlider.stringValue = notificationsTimeVal
         }
+        if let travelTimeMenuBarVal = defaults.string(forKey: "travelTimeMenuBar") {
+            travelTimeMenuBarCheckBox.stringValue = travelTimeMenuBarVal
+        }
         if let checkForUpdatesVal = defaults.string(forKey: "checkForUpdates") {
             checkForUpdatesCheckBox.stringValue = checkForUpdatesVal
         }
@@ -79,6 +83,7 @@ class PreferencesWindow: NSWindowController {
         defaults.setValue(cacheInput.stringValue, forKey: "cache")
         defaults.setValue(notificationsCheckbox.stringValue, forKey: "notificationsEnabled")
         defaults.setValue(notificationsTimeSlider.stringValue, forKey: "notificationsTime")
+        defaults.setValue(travelTimeMenuBarCheckBox.stringValue, forKey: "travelTimeMenuBar")
         defaults.setValue(checkForUpdatesCheckBox.stringValue, forKey: "checkForUpdates")
         defaults.synchronize()
         delegate?.preferencesDidUpdate()

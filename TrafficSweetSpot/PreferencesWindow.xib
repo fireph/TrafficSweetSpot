@@ -16,6 +16,7 @@
                 <outlet property="notificationsTimeLabel" destination="n6j-wS-Afe" id="ccQ-QW-eSP"/>
                 <outlet property="notificationsTimeSlider" destination="jw9-2g-8no" id="Yc7-1o-Rul"/>
                 <outlet property="originInput" destination="KIm-G7-ceC" id="j9s-bO-odF"/>
+                <outlet property="travelTimeMenuBarCheckBox" destination="lRD-N9-svt" id="QZ0-DN-aiv"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
             </connections>
         </customObject>
@@ -25,7 +26,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="480" height="270"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
             <view key="contentView" id="se5-gp-TjO">
                 <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -129,10 +130,10 @@
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RCy-gH-BDb">
-                        <rect key="frame" x="18" y="85" width="444" height="18"/>
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lRD-N9-svt">
+                        <rect key="frame" x="18" y="81" width="444" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="check" title="Automatically Check For Updates" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="kaY-n3-f5a">
+                        <buttonCell key="cell" type="check" title="Show Travel Time in Menu Bar" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="lda-tv-3bK">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -162,6 +163,14 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RCy-gH-BDb">
+                        <rect key="frame" x="18" y="53" width="444" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="Automatically Check For Updates" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="kaY-n3-f5a">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                    </button>
                 </subviews>
             </view>
             <connections>

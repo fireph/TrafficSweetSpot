@@ -60,6 +60,7 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
     var origin : String?
     var dest : String?
     var cacheString : String?
+    var travelTimeMenuBar : Bool?
     var checkForUpdates : Bool = true
     
     var checkForUpdatesTimer : Timer?
@@ -72,6 +73,7 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
         let icon = NSImage(named: NSImage.Name(rawValue: "statusIcon"))
         icon?.isTemplate = true // best for dark mode
         statusItem.image = icon
+        statusItem.title = ""
         statusItem.menu = statusMenu
         aboutWindow = AboutWindow()
         preferencesWindow = PreferencesWindow()
@@ -106,6 +108,7 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
         apiKey = defaults?.string(forKey: "apiKey")
         origin = defaults?.string(forKey: "origin")
         dest = defaults?.string(forKey: "dest")
+        travelTimeMenuBar = defaults?.string(forKey: "travelTimeMenuBar")?.toBool()
         cacheString = defaults?.string(forKey: "cache")
         refreshUpdateDefault()
     }
@@ -161,6 +164,9 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
                 routesData.notifyDataChanged()
                 travelTimeChart.update()
                 statusMenu.itemChanged(travelTimeChartMenuItem)
+                DispatchQueue.main.async {
+                    self.statusItem.title = self.getStatusBarString()
+                }
             }
         }
     }
@@ -202,15 +208,23 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
         let apiKeyNew = defaults?.string(forKey: "apiKey")
         let originNew = defaults?.string(forKey: "origin")
         let destNew = defaults?.string(forKey: "dest")
+        let travelTimeMenuBarNew = defaults?.string(forKey: "travelTimeMenuBar")?.toBool()
         let shouldResetData = (apiKeyNew != apiKey || originNew != origin || destNew != dest)
+        let shouldUpdateTravelTimeMenuBar = (travelTimeMenuBarNew != travelTimeMenuBar)
         apiKey = apiKeyNew
         origin = originNew
         dest = destNew
+        travelTimeMenuBar = travelTimeMenuBarNew
         cacheString = defaults?.string(forKey: "cache")
         if (shouldResetData) {
             routesSet.clear()
             travelTimeChart.update()
             updateTravelTime()
+        }
+        if (shouldUpdateTravelTimeMenuBar) {
+            DispatchQueue.main.async {
+                self.statusItem.title = self.getStatusBarString()
+            }
         }
         refreshUpdateDefault()
     }
@@ -272,5 +286,20 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
         notification.informativeText = text
         notification.soundName = NSUserNotificationDefaultSoundName
         NSUserNotificationCenter.default.deliver(notification)
+    }
+    
+    func getStatusBarString() -> String {
+        var statusTitle = ""
+        if (self.travelTimeMenuBar ?? false && routesSet.entryCount > 0) {
+            let lastEntry = routesSet.entryForIndex(routesSet.entryCount - 1)!
+            let durationInt = Int(lastEntry.y)
+            if (durationInt >= 60) {
+                statusTitle += String(Int(durationInt / 60)) + "h"
+            }
+            if (durationInt % 60 > 0) {
+                statusTitle += String(durationInt % 60) + "m"
+            }
+        }
+        return statusTitle
     }
 }
