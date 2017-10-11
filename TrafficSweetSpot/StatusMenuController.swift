@@ -64,7 +64,7 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
     var checkForUpdates : Bool = true
     
     var checkForUpdatesTimer : Timer?
-    var lastNotificationTimestamp: Double?
+    var lastNotificationDay: Int?
 
     var routesSet : LineChartDataSet!
     var routesData : LineChartData!
@@ -150,12 +150,18 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
             if (routesSet.entryCount > 0) {
                 let notificationsEnabled = defaults?.string(forKey: "notificationsEnabled")?.toBool() ?? false
                 let notificationsTime = Double((defaults?.string(forKey: "notificationsTime"))!) ?? -1.0
+                let notificationsStartTime = Int((defaults?.string(forKey: "startTimeNotif"))!) ?? 17
+                let notificationsEndTime = Int((defaults?.string(forKey: "endTimeNotif"))!) ?? 19
                 let lastEntryTime = routesSet.entryForIndex(routesSet.entryCount - 1)?.y ?? entry.y
+                let hour = getHourFromTimestamp(entry.x)
+                let day = getDayFromTimestamp(entry.x)
+                let withinNotifRange = hour >= notificationsStartTime && hour < notificationsEndTime
                 if (notificationsEnabled
-                    && entry.x - (lastNotificationTimestamp ?? 0.0) > TIME_BETWEEN_NOTIFICATIONS
+                    && withinNotifRange
+                    && lastNotificationDay != day
                     && lastEntryTime > notificationsTime
                     && entry.y <= notificationsTime) {
-                    lastNotificationTimestamp = entry.x
+                    lastNotificationDay = day
                     showNotification(subtitle: "Traffic has died down 😀", text: "Travel time is now: " + String(Int(entry.y)) + " minutes")
                 }
             }
@@ -277,6 +283,16 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
         dateFormatter.dateFormat = "HH:mm"
         let timeString = dateFormatter.string(from: Date(timeIntervalSinceReferenceDate: timestamp))
         return timeString
+    }
+    
+    func getHourFromTimestamp(_ timestamp: Double) -> Int {
+        let date = Date(timeIntervalSinceReferenceDate: timestamp)
+        return Calendar.current.component(.hour, from: date)
+    }
+    
+    func getDayFromTimestamp(_ timestamp: Double) -> Int {
+        let date = Date(timeIntervalSinceReferenceDate: timestamp)
+        return Calendar.current.ordinality(of: .day, in: .year, for: date)!
     }
     
     func showNotification(subtitle: String, text: String) {
