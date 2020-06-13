@@ -28,7 +28,7 @@ class AboutWindow: NSWindowController {
     }
 
     @IBAction func githubClick(_ sender: AnyObject) {
-        NSWorkspace.shared.open(URL(string: "https://github.com/DungFu/TrafficSweetSpot")!)
+        NSWorkspace.shared.open(URL(string: "https://github.com/fireph/TrafficSweetSpot")!)
         self.window?.close()
     }
 }

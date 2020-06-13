@@ -22,7 +22,7 @@ class UpdateWindow: NSWindowController {
     }
 
     @IBAction func downloadButtonClick(_ sender: AnyObject) {
-        NSWorkspace.shared.open(URL(string: "https://github.com/DungFu/TrafficSweetSpot/releases")!)
+        NSWorkspace.shared.open(URL(string: "https://github.com/fireph/TrafficSweetSpot/releases")!)
         self.window?.close()
     }
 }

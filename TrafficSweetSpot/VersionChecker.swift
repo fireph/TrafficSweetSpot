@@ -12,7 +12,7 @@ import SwiftyJSON
 class VersionChecker {
     func isAppUpdatedToNewestVersion(_ success: @escaping (Bool) -> Void) {
         let session = URLSession.shared
-        let url = URL(string: "https://api.github.com/repos/DungFu/TrafficSweetSpot/releases/latest")
+        let url = URL(string: "https://api.github.com/repos/fireph/TrafficSweetSpot/releases/latest")
         let task = session.dataTask(with: url!, completionHandler: { data, response, err in
             // first check for a hard error
             if let error = err {
