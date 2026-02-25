@@ -10,9 +10,7 @@ The starting location and ending location can be in any format that Google can r
 1 Facebook Way, Menlo Park, CA 94025
 ```
 
-![TrafficSweetSpot Context Menu](https://i.imgur.com/MWtODi1.png)
-
-![TrafficSweetSpot Settings Screen](https://i.imgur.com/7MRI8Da.png)
+<img src="https://github.com/fireph/TrafficSweetSpot/blob/master/trafficsweetspot.jpg?raw=true" alt="TrafficSweetSpot Context Menu" width="300">
 
 If you would like to build yourself:
 1. checkout the repository
